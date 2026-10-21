@@ -5,6 +5,10 @@ on:
     branches: [main, feature/supabase-real-backend]
   workflow_dispatch:
 
+concurrency:
+  group: android-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   android-debug:
     runs-on: ubuntu-latest
