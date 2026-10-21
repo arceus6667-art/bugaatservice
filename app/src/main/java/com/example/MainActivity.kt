@@ -96,15 +96,15 @@ fun BugaApp(stateManager: AppStateManager) {
           else -> "Sanctuary"
         },
         onBellClick = {
-          stateManager.currentScreen = "ring_bell"
+          if (stateManager.currentUserRole == UserRole.USER) stateManager.currentScreen = "ring_bell"
         },
         onProfileClick = {
-          stateManager.currentScreen = "more"
+          if (stateManager.currentUserRole == UserRole.USER) stateManager.currentScreen = "more"
         }
       )
     },
     bottomBar = {
-      BottomNavBar(
+      if (stateManager.currentUserRole == UserRole.USER) BottomNavBar(
         currentScreen = stateManager.currentScreen,
         onNavigate = { screenKey ->
           stateManager.currentScreen = screenKey
@@ -143,10 +143,10 @@ fun BugaApp(stateManager: AppStateManager) {
             stateManager = stateManager,
             onNavigate = { stateManager.currentScreen = it }
           )
-          "admin" -> AdminDashboardScreen(
+          "admin" -> if (stateManager.currentUserRole == UserRole.ADMIN) AdminDashboardScreen(
             stateManager = stateManager,
             onNavigate = { stateManager.currentScreen = it }
-          )
+          ) else HomeScreen(stateManager = stateManager, onNavigate = { stateManager.currentScreen = it })
           "self_care" -> SelfCareScreen(
             stateManager = stateManager,
             onNavigate = { stateManager.currentScreen = it }
