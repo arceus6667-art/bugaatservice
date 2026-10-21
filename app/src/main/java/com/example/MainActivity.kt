@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import kotlinx.coroutines.delay
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
@@ -46,6 +48,18 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun BugaApp(stateManager: AppStateManager) {
+  LaunchedEffect(stateManager.isLoggedIn, stateManager.currentUserRole) {
+    while (stateManager.isLoggedIn) {
+      try {
+        stateManager.refreshFromDatabase()
+        stateManager.lastConfirmationNotice = null
+      } catch (e: Exception) {
+        stateManager.lastConfirmationNotice = e.message ?: "Could not refresh data"
+      }
+      delay(15000L)
+    }
+  }
+
   if (!stateManager.isLoggedIn) {
     LoginScreen(
       stateManager = stateManager,
