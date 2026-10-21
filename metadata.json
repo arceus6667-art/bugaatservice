@@ -1,0 +1,6 @@
+{
+  "name": "BUGA at Service",
+  "description": "A private, romantic personal-care application featuring menstrual cycle tracking, daily mood & symptom tracking, vegetarian food booking without prices, Ring the Bell SOS, and a separate administrator dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

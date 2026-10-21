@@ -1,0 +1,711 @@
+# ACT SERVICE — COMPLETE PRODUCTION APP & SUPABASE INTEGRATION PROMPT
+
+## 1. Project Mission
+
+Upgrade the existing Act Service application into a fully functional, database-connected application using Supabase.
+
+**Application name: Act Service**
+
+This is a private personal-care application featuring menstrual cycle tracking, daily mood and symptom tracking, vegetarian food selection and booking, a “Ring the Bell” feature, and a separate administrator dashboard.
+
+This is not a demo prototype. Implement working authentication, persistent database storage, authorization, database migrations, real request processing, and live updates.
+
+Preserve the existing romantic, polished, mobile-first design. Do not unnecessarily redesign working screens or remove existing features.
+
+### Non-negotiable requirements
+
+- Integrate the application with a real Supabase project.
+- Remove all demo credentials and mock authentication.
+- Remove every User/Admin selection option from the login screen.
+- Automatically redirect authenticated users according to their verified account role.
+- Never display the Admin Control Panel inside the user interface.
+- Start all personal tracking sections without dummy activity records.
+- Start the cart, favourites, notifications, and request history empty.
+- Store actual user-generated records in Supabase.
+- Never expose Supabase secret or service-role credentials in frontend code.
+- Enable and verify appropriate Row Level Security (RLS) policies.
+- Do not display prices or payment information in food ordering.
+
+## 2. Supabase Project Connection
+
+Use the Supabase project already configured for this application. If no project is connected, provide a clear setup process for connecting the actual project.
+
+Use the official Supabase JavaScript client and the framework-appropriate environment configuration.
+
+For a Vite React application, use:
+
+- `VITE_SUPABASE_URL`
+- `VITE_SUPABASE_PUBLISHABLE_KEY`
+
+Read these values from environment variables. Never hardcode actual credentials into components, source files, or the repository.
+
+Never put a Supabase service-role key or secret key in a browser-accessible environment variable.
+
+Create a centralized Supabase client module and reuse it throughout the application.
+
+Example architecture:
+
+- `src/lib/supabaseClient.ts`
+- `src/lib/auth.ts`
+- `src/lib/authorization.ts`
+- `src/services/profileService.ts`
+- `src/services/cycleService.ts`
+- `src/services/checkInService.ts`
+- `src/services/foodService.ts`
+- `src/services/bellService.ts`
+- `src/services/notificationService.ts`
+
+Adapt file extensions and paths to the existing application structure.
+
+Inspect the current code and database before making changes. Do not overwrite an existing project or destructively replace existing database tables without reviewing their contents and dependencies first.
+
+## 3. Real Authentication — No Dummy Login
+
+Completely remove the existing simulated login system.
+
+The initial screen should display only:
+
+- Act Service logo.
+- Login ID/email field.
+- Password field.
+- Show/hide password control.
+- Sign In button.
+- Forgot Password link.
+- Create Account link, if public user registration is enabled.
+
+Do not include:
+
+- “Continue as User.”
+- “Continue as Admin.”
+- User/Admin selection cards.
+- Demo credentials.
+- Pre-filled email addresses.
+- Pre-filled passwords.
+- Fake authentication success messages.
+
+All authentication input fields must be empty when the page opens.
+
+Use actual Supabase Auth for account creation, email/password sign-in, session restoration, password recovery, and sign-out.
+
+Do not accept a login simply because an input field contains a particular hardcoded value.
+
+Display appropriate loading states and genuine authentication errors. Never display a successful-login state until Supabase confirms authentication.
+
+Newly registered accounts must receive normal user privileges by default. Public registration must never provide a way to create an administrator account.
+
+## 4. One Login Page, Automatic Role-Based Routing
+
+There must be one shared login experience and no role selector.
+
+After successful authentication:
+
+1. Retrieve the authenticated account through Supabase Auth.
+2. Verify the session and trusted authorization claims.
+3. Determine whether the account has the authorized user role or administrator role.
+4. Redirect a normal user to the user dashboard.
+5. Redirect an authorized administrator to the Admin Control Panel.
+6. Reject access if the role is missing, invalid, or unauthorized.
+
+Example route structure:
+
+- `/login` — shared sign-in page.
+- `/signup` — account registration, if enabled.
+- `/forgot-password` — password recovery.
+- `/app` — protected user dashboard.
+- `/app/cycle` — user's cycle tracker.
+- `/app/feelings` — user's daily mood and symptom tracker.
+- `/app/food` — vegetarian food catalog.
+- `/app/cart` — food cart.
+- `/app/requests` — user's food and bell request history.
+- `/app/settings` — user's settings.
+- `/admin` — protected administrator dashboard.
+
+Implement route guards and server/database-level authorization, not merely conditional rendering.
+
+A regular user who manually enters `/admin` must not gain administrator access. Redirect unauthorized users to their permitted page or show an access-denied screen.
+
+Do not expose any admin routes, control-panel buttons, administrator labels, role-switching controls, or administrator/partner management links inside the user dashboard, including the More menu.
+
+An administrator can use the same login form. Their authorized account role automatically takes them to `/admin`.
+
+## 5. Secure Role Management
+
+Use trusted administrator authorization stored in Supabase Auth `app_metadata`, or an equivalently secure server-managed authorization mechanism.
+
+Do not use editable `user_metadata`, local storage, frontend variables, or a user-editable profile field to grant administrator permissions.
+
+The first administrator account must be created or authorized through the Supabase Dashboard or a trusted server-side administrative process. Never create an admin account through an unrestricted public signup workflow.
+
+Use the verified administrator role for both frontend route protection and appropriate database RLS policies.
+
+If an account has not been explicitly authorized as an administrator, it must not access administrator resources.
+
+## 6. Create the Actual Database Schema
+
+Create version-controlled SQL migrations for the actual database schema. Apply the migrations through the supported Supabase workflow and verify that the tables, relationships, indexes, and policies were created successfully.
+
+Use UUID primary keys, foreign keys, timestamps, appropriate constraints, and indexes.
+
+Create the following tables or equivalent normalized structures.
+
+### A. `profiles`
+
+Store non-sensitive account information, including:
+
+- `id`, matching the authenticated Supabase user ID.
+- `display_name`.
+- `created_at`.
+- `updated_at`.
+
+A user must only be able to retrieve or update their own permitted profile fields. Profile updates must never modify administrator authorization.
+
+### B. `cycle_entries`
+
+Store genuine menstrual cycle records:
+
+- `id`.
+- `user_id`.
+- `period_start_date`.
+- `period_end_date`, nullable.
+- `flow_level`, nullable.
+- `notes`, nullable.
+- `created_at`.
+- `updated_at`.
+
+Create the required database validation for dates and permitted flow values.
+
+Do not create fabricated period entries or automatically populate cycle history.
+
+### C. `wellbeing_options`
+
+Store the available mood and symptom options used by the application:
+
+- `id`.
+- `category`.
+- `label`.
+- `option_type`.
+- `is_active`.
+- `created_at`.
+
+Use distinct IDs and labels, with at least 180 unique options across the mood, emotion, symptom, wellbeing, discharge observation, and support-preference categories.
+
+These are selectable catalog options, not pre-existing user records.
+
+### D. `daily_checkins`
+
+Store actual user-created daily check-ins:
+
+- `id`.
+- `user_id`.
+- `checkin_date`.
+- `notes`, nullable.
+- `intensity`, nullable.
+- `created_at`.
+- `updated_at`.
+
+### E. `daily_checkin_selections`
+
+Store selected wellbeing options related to an actual check-in:
+
+- `id`.
+- `checkin_id`.
+- `option_id`.
+- `created_at`.
+
+Add foreign keys and suitable uniqueness constraints to prevent duplicate selections.
+
+A selection must belong to a check-in owned by the authenticated user.
+
+### F. `food_categories`
+
+Store cuisine categories, such as Indian, Italian, French, Mexican, American, Chinese, Thai, Mediterranean, and other international vegetarian cuisines.
+
+### G. `food_items`
+
+Store the actual vegetarian food catalog:
+
+- `id`.
+- `category_id`.
+- `name`.
+- `description`.
+- `image_url`, nullable.
+- `cuisine`.
+- `is_vegetarian`.
+- `is_vegan`, nullable.
+- `is_jain_friendly`, nullable.
+- `is_active`.
+- `created_at`.
+- `updated_at`.
+
+Populate the catalog with at least 150 distinct vegetarian dishes.
+
+**Do not create price, cost, subtotal, tax, or payment amount columns for the food-ordering feature.** The schema should not implement a payment workflow.
+
+The catalog must contain genuine food choices, but there must be no preselected dish for any user.
+
+### H. `food_requests`
+
+Store actual submitted food requests:
+
+- `id`.
+- `user_id`.
+- `status`.
+- `notes`, nullable.
+- `created_at`.
+- `updated_at`.
+
+Permitted statuses should include:
+
+- `submitted`
+- `acknowledged`
+- `in_progress`
+- `completed`
+- `cancelled`
+
+Validate status transitions and authorization appropriately.
+
+### I. `food_request_items`
+
+Store the dishes belonging to each food request:
+
+- `id`.
+- `food_request_id`.
+- `food_item_id`.
+- `quantity`.
+- `item_notes`, nullable.
+- `created_at`.
+
+Validate that quantities are positive integers and that selected catalog items are active vegetarian items.
+
+Do not add any payment or price fields.
+
+### J. `bell_requests`
+
+Store actual Ring the Bell requests:
+
+- `id`.
+- `user_id`.
+- `message`, nullable.
+- `status`.
+- `created_at`.
+- `updated_at`.
+- `acknowledged_at`, nullable.
+- `resolved_at`, nullable.
+
+Use suitable statuses, such as:
+
+- `pending`
+- `seen`
+- `responding`
+- `resolved`
+- `cancelled`
+
+### K. `admin_notifications`
+
+Store administrator-facing notification events:
+
+- `id`.
+- `event_type`.
+- `food_request_id`, nullable.
+- `bell_request_id`, nullable.
+- `title`.
+- `message`.
+- `created_at`.
+- `read_at`, nullable.
+
+Generate notifications automatically when a genuine food request or bell request is created.
+
+Use a secure database trigger or an appropriately protected server-side Edge Function. Do not allow ordinary users to manufacture administrator notification events directly.
+
+The notification should reveal only the information required to process the request. Do not include private cycle history, discharge records, or mood/symptom details.
+
+## 7. Database Security and Row Level Security
+
+Enable RLS on every table exposed through the Supabase Data API.
+
+Create explicit policies for every required operation. Do not rely solely on frontend route guards.
+
+### User permissions
+
+A normal authenticated user may:
+
+- Read and update permitted fields of their own profile.
+- Create and manage their own cycle records.
+- Create and manage their own daily check-ins.
+- Read the available wellbeing options.
+- Read active food catalog entries.
+- Create and review their own food requests.
+- Read and manage the items belonging to their own requests, subject to valid request states.
+- Create and review their own Ring the Bell requests.
+- Read permitted personal request statuses.
+
+A normal user must not be able to read or modify another user's personal records.
+
+### Administrator permissions
+
+An authorized administrator may:
+
+- Read and manage the food requests that need handling.
+- Read their associated food request items.
+- Update permitted food request statuses.
+- Read and update administrator notifications.
+- Read and update Ring the Bell requests.
+- Manage appropriate food catalog records if catalog management is implemented.
+
+An administrator must not automatically gain access to users' private cycle entries or daily mood and symptom records.
+
+### Additional security requirements
+
+- Every user-owned table must enforce ownership using `auth.uid()` or an equivalent secure ownership check.
+- Update policies must have correct `USING` and `WITH CHECK` restrictions.
+- Users must not be able to change their `user_id` to another account.
+- Users must not be able to promote themselves to administrator.
+- Never use frontend-provided role names as proof of authorization.
+- Never disable RLS to make an application query work.
+- Restrict anonymous access to private application records.
+- Use server-side credentials only in trusted server environments.
+- Never expose private administrative functions through unrestricted endpoints.
+
+Review and test the final policies, not merely the frontend authorization logic.
+
+## 8. Initial State — No Dummy User Data
+
+This requirement is critical.
+
+When a real account logs in for the first time, its personal screens must start empty.
+
+### My Cycle
+
+Display an empty state:
+
+**“Your cycle journey starts here 💗”**
+
+Supporting text:
+
+“Add your first period entry to begin tracking your cycle.”
+
+Initially:
+- No past periods.
+- No fabricated cycle dates.
+- No pre-filled period duration.
+- No invented cycle history.
+- No estimated next-period date until enough valid information exists.
+
+### My Feelings
+
+Display the real selectable mood and symptom catalog, but select nothing by default.
+
+Initially:
+- No selected moods.
+- No selected symptoms.
+- No fake daily check-ins.
+- No fabricated notes.
+- No sample history or charts.
+
+The user creates the first record by making selections and explicitly saving the check-in.
+
+### Food Catalog and Cart
+
+The food catalog should display the actual catalog of vegetarian dishes.
+
+However:
+- No dishes may be selected by default.
+- The cart must initially be empty.
+- Do not prepopulate favourites.
+- Do not create fictitious orders or request history.
+- Do not show a fake checkout or payment status.
+
+### Notifications and Admin Dashboard
+
+Initially:
+- No fabricated bell requests.
+- No fabricated food requests.
+- No unread sample notifications.
+- No made-up activity records.
+
+Display appropriate empty states until genuine user actions generate records.
+
+**Important distinction:** It is acceptable to seed the selectable wellbeing catalog and the vegetarian food catalog. Do not seed fabricated personal activity data, dummy accounts, mock requests, or preselected user choices.
+
+## 9. Actual Data Persistence
+
+Every user action that creates or changes a record must use the actual Supabase database.
+
+Implement real create, read, update, and delete operations where appropriate.
+
+This applies to:
+
+- Cycle entries.
+- Mood and symptom check-ins.
+- Saved check-in selections.
+- Food requests.
+- Food request items.
+- Ring the Bell requests.
+- Administrator notification states.
+- Permitted request status updates.
+- Profile changes.
+
+Data must remain available after refreshing the browser, signing out, and signing back into the same account.
+
+Do not rely on local storage as the primary database.
+
+Use local component state only for temporary UI state, such as unsaved form input or the contents of an unsubmitted cart. Once an action is saved, the authoritative result must come from Supabase.
+
+Show clear loading, success, empty, and error states. If a database operation fails, display a helpful error and retain the user's unsaved input where appropriate.
+
+Never show “Saved,” “Request submitted,” or “Notification sent” unless the relevant operation has actually succeeded.
+
+## 10. Working Cycle Tracker
+
+Connect the cycle calendar and logging forms to `cycle_entries`.
+
+Allow the user to create, view, edit, and delete their own cycle records.
+
+Populate the calendar from saved records, not hardcoded arrays.
+
+Calculate cycle summaries from genuine saved dates. Clearly mark any predictions as estimates.
+
+Do not interpret insufficient history as a reliable prediction. Avoid fabricating an expected period date when no appropriate data is available.
+
+All records must be scoped to the authenticated user and enforced by RLS.
+
+## 11. Working Mood and Symptom Tracker
+
+Connect the selectable catalog to `wellbeing_options`, and connect saved check-ins and selected options to their respective tables.
+
+Allow the user to:
+- Browse categories.
+- Search options.
+- Select multiple tags.
+- Add optional notes.
+- Save a check-in.
+- Edit or delete a saved check-in.
+- View actual previous check-ins.
+
+Do not save selections until the user explicitly submits the check-in.
+
+Show history only when genuine records exist.
+
+Keep sensitive mood, symptom, period-flow, and discharge observations private by default, including from the administrator.
+
+## 12. Vegetarian Food Booking — No Payment
+
+Create an actual vegetarian food catalog using `food_categories` and `food_items`.
+
+The catalog must contain at least 150 distinct dishes across Indian and international cuisines.
+
+The interface must never display food prices, totals, charges, taxes, payment amounts, or currency symbols.
+
+Implement:
+- Food search.
+- Cuisine filtering.
+- Dietary filters.
+- Favourites, if included.
+- Add to Cart.
+- Quantity controls.
+- Remove from Cart.
+- Optional food preferences and notes.
+- Confirm Booking.
+- Food request history.
+
+An unsubmitted cart may exist temporarily in the user's session, but confirming a booking must create an actual `food_requests` record and its associated `food_request_items` in Supabase.
+
+Create the parent request and its items as a reliable transaction, or use a secure server-side operation that avoids partially created orders.
+
+After successful submission, show:
+
+**“Your order will be delivered, ma’am. 💗 No payment required — just sit back and relax.”**
+
+Supporting message:
+
+“Your food request has been sent to Buga. He’ll take care of it!”
+
+Show a genuine request reference ID and the initial request status.
+
+This is a personal no-payment request system. Do not integrate a commercial payment gateway or claim that a restaurant order has been placed.
+
+Only display the delivery confirmation message after the booking has actually been saved. Make it clear that Buga must arrange the requested food; a database notification alone does not guarantee physical delivery.
+
+## 13. Ring the Bell — Real Request Processing
+
+When the user confirms “Ring the Bell,” create a real row in `bell_requests`.
+
+Before submitting, allow the user to enter an optional message.
+
+After a successful database insert, show:
+
+**“Your bell has been rung! 🔔 Buga has been notified. He is expected to check in within about 10 minutes.”**
+
+Treat the 10-minute period as an intended response goal, not a guaranteed service level.
+
+Show the current status from the database and allow appropriate cancellation while pending.
+
+Never treat the notification as an emergency or healthcare response service.
+
+## 14. Real Administrator Dashboard
+
+Build a separate protected Admin Control Panel that is not linked from any user-facing navigation.
+
+After the authorized administrator logs in through the shared login page, direct them to `/admin`.
+
+The administrator dashboard must display real database records only.
+
+### Dashboard
+
+Show:
+- Pending food requests.
+- Pending Ring the Bell requests.
+- Unread administrator notifications.
+- Recent genuine activity.
+- Requests awaiting acknowledgement.
+
+When no requests exist, show a clean empty state instead of sample data.
+
+### Food Requests
+
+Allow the administrator to:
+- Open a request.
+- View its selected dishes and quantities.
+- Read the user's explicitly supplied food notes.
+- Acknowledge the request.
+- Mark it as being handled.
+- Mark the request completed.
+- View previous requests.
+
+Persist each allowed status update in Supabase.
+
+### Ring the Bell Requests
+
+Allow the administrator to:
+- View pending requests.
+- Read an optional message.
+- Acknowledge a request.
+- Mark it as being handled.
+- Resolve a request.
+- View genuine request history.
+
+Persist acknowledgement and resolution timestamps where applicable.
+
+### Notifications
+
+Read actual notifications from `admin_notifications`.
+
+Support marking notifications as read, opening the associated request, and updating request status through the appropriate authorized workflow.
+
+Never expose these administrator notifications to a normal user.
+
+## 15. Real-Time Updates and Phone Notifications
+
+Use Supabase Realtime for appropriate database-driven updates.
+
+When the user submits a food request or rings the bell:
+1. Save the request to Supabase.
+2. Generate a corresponding administrator notification through the secure server-side workflow.
+3. Make the request visible to the authorized administrator.
+4. Update the administrator dashboard without requiring a manual refresh where Realtime is supported.
+
+When the administrator changes a request status, update the user's request view using authorized database reads or Realtime subscriptions.
+
+Use RLS to restrict Realtime events to the appropriate audience. Do not broadcast private database events publicly.
+
+For actual Android phone push notifications, implement a trusted server-side integration with Firebase Cloud Messaging or the chosen supported push provider, after its required credentials and Android configuration are supplied.
+
+Do not claim a phone push notification was delivered simply because a database row was created.
+
+Provide clear handling of notification permissions, device registration, delivery errors, and unavailable push configuration.
+
+The application must remain functional even if push notifications have not yet been configured.
+
+## 16. Frontend, Backend, and Database Architecture
+
+Preserve the existing framework and organize features into reusable components and service modules.
+
+Separate:
+- UI components.
+- Authentication logic.
+- Protected routing.
+- Database queries.
+- Input validation.
+- Request processing.
+- Authorization checks.
+- Realtime subscriptions.
+- Notification handling.
+
+Do not simulate a successful backend response.
+
+Use proper error handling for expired sessions, permission errors, network failures, invalid form values, duplicate submissions, and deleted records.
+
+Ensure that the database is the source of truth for persisted records and request statuses.
+
+Do not silently fall back to fabricated records when Supabase is unavailable. Display an appropriate connection or loading error instead.
+
+## 17. Migration and Setup Deliverables
+
+Produce the actual implementation, not just a plan.
+
+Required deliverables:
+
+1. Configured Supabase client.
+2. Real login, registration if enabled, password recovery, and logout.
+3. Shared login page without a User/Admin selector.
+4. Secure role-based routing.
+5. Separate protected administrator routes.
+6. SQL migration files for all required tables, constraints, indexes, and RLS policies.
+7. Safe catalog seeding for the vegetarian menu and wellbeing options.
+8. No fabricated user activity data.
+9. Connected cycle tracker.
+10. Connected mood and symptom tracker.
+11. Connected food requests and cart booking.
+12. Connected Ring the Bell request processing.
+13. Real administrator request management.
+14. Realtime updates where supported.
+15. A clear environment-variable template without real secrets.
+16. Setup documentation for the Supabase project.
+17. Instructions for creating and securely assigning the first administrator account.
+18. A test checklist and verified results.
+
+Do not overwrite project configuration or existing migrations without reviewing them. Do not put real credentials in documentation or source control.
+
+## 18. Mandatory Testing Before Completion
+
+Verify the actual application against these scenarios:
+
+**Authentication**
+- Empty inputs are not accepted.
+- Valid Supabase credentials authenticate correctly.
+- Invalid credentials display a real error.
+- Sessions survive a refresh as appropriate.
+- Logout invalidates the local session.
+- Password recovery works with the configured Supabase email flow.
+
+**Authorization**
+- Normal users automatically open the user dashboard.
+- Authorized administrators automatically open the administrator dashboard.
+- Normal users cannot open `/admin` by typing the URL.
+- No role-switching or Admin Control Panel link appears in the user interface.
+- Users cannot grant themselves administrative privileges.
+
+**Data integrity**
+- A new user's cycle calendar is empty.
+- Their mood history is empty.
+- Their cart and favourites are empty.
+- No fabricated requests or notifications appear.
+- Saved records survive refresh and sign-in.
+- One user cannot read another user's private records.
+- Administrators cannot read private mood or cycle records through database queries or Realtime.
+
+**Food and bell workflows**
+- Food bookings create real request and item records.
+- No monetary amounts appear anywhere in the food interface or database schema.
+- Ring the Bell creates a real request.
+- Requests appear in the correct administrator dashboard.
+- Admin status changes persist and are visible to the appropriate user.
+- Realtime and notification behavior are tested separately, without claiming unsupported push delivery.
+
+Run the relevant database checks and application tests. Fix identified security and functionality issues rather than simply reporting them.
+
+## Final Acceptance Criteria
+
+The project is complete only when Act Service uses real Supabase authentication and database storage, has correctly enforced role-based access, maintains empty initial personal states, processes actual user requests, keeps private health-related entries confidential, and has no demo credentials or fake activity data.
+
+**The final product must feel polished and romantic while behaving like a properly secured, functional application — not a clickable mockup.**

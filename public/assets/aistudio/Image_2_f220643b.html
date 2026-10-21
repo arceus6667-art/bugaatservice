@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-surface": "#251723", "on-primary-container": "#6b3547", "on-secondary-fixed-variant": "#484553", "secondary-fixed": "#e6e0f2", "primary-fixed": "#ffd9e2", "on-tertiary-fixed-variant": "#394b39", "surface-tint": "#874d5f", "on-background": "#251723", "secondary-fixed-dim": "#c9c4d5", "surface-container-lowest": "#ffffff", "on-secondary-container": "#666271", "error-container": "#ffdad6", "tertiary-container": "#a5baa2", "primary-container": "#e8a0b5", "surface": "#fff7fa", "on-error-container": "#93000a", "surface-container-highest": "#f4dced", "on-tertiary-fixed": "#0e1f10", "on-primary-fixed-variant": "#6c3648", "inverse-on-surface": "#ffebf9", "surface-container-high": "#fae1f3", "surface-container-low": "#ffeff9", "tertiary-fixed-dim": "#b7ccb4", "on-secondary-fixed": "#1c1a26", "surface-bright": "#fff7fa", "on-primary-fixed": "#370a1d", "background": "#fff7fa", "on-secondary": "#ffffff", "primary-fixed-dim": "#fcb2c7", "on-primary": "#ffffff", "surface-variant": "#f4dced", "outline": "#837377", "on-tertiary": "#ffffff", "secondary-container": "#e6e0f2", "inverse-surface": "#3b2c39", "surface-container": "#ffe7f8", "secondary": "#605c6b", "on-tertiary-container": "#384b38", "tertiary-fixed": "#d3e8cf", "surface-dim": "#ebd3e5", "primary": "#874d5f", "error": "#ba1a1a", "on-error": "#ffffff", "outline-variant": "#d5c2c6", "inverse-primary": "#fcb2c7", "tertiary": "#50634f", "on-surface-variant": "#514347" }, "borderRadius": { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, "spacing": { "margin": "1.25rem", "space-xl": "2.25rem", "space-sm": "0.5rem", "gutter-tablet": "1.5rem", "space-md": "1rem", "space-lg": "1.5rem", "space-xs": "0.25rem", "gutter": "1rem", "margin-tablet": "2rem" }, "fontFamily": { "body-md": ["Plus Jakarta Sans"], "display-lg": ["Playfair Display"], "headline-lg": ["Playfair Display"], "body-lg": ["Plus Jakarta Sans"], "display-lg-mobile": ["Playfair Display"], "title-md": ["Plus Jakarta Sans"], "headline-md": ["Playfair Display"], "headline-sm": ["Playfair Display"], "label-sm": ["Plus Jakarta Sans"], "label-md": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"], "label-lg": ["Plus Jakarta Sans"] }, "fontSize": { "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "headline-lg": ["28px", { "lineHeight": "36px", "fontWeight": "600" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "display-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "title-md": ["16px", { "lineHeight": "22px", "fontWeight": "600" }], "headline-md": ["22px", { "lineHeight": "30px", "fontWeight": "500" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "500" }], "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "500" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }] } } } };</script><style>@layer base { html, body { margin: 0; padding: 0; } .pb-safe { padding-bottom: env(safe-area-inset-bottom, 16px); } .pt-safe { padding-top: env(safe-area-inset-top, 0px); } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col selection:bg-primary-container selection:text-on-primary-container"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(135,77,95,0.06)]"><div class="px-margin h-6 flex items-center justify-between text-on-surface-variant font-label-sm text-[12px] pt-1"><span class="font-semibold">9:41</span><div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[14px]">signal_cellular_alt</span><span class="font-medium text-[11px]">5G</span><span class="material-symbols-outlined text-[14px]">wifi</span><span class="material-symbols-outlined text-[16px]">battery_full</span></div></div><div class="h-16 px-margin flex items-center justify-between"><div class="flex items-center gap-2.5 min-w-0"><img alt="BUGA at Service Logo" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1XkUuXKSM03fIJ7-uUbf65F8BI2COJIOwA6Cd6psCeILxFFrDMzsUgPE43x3lGPWE7PH6xXZsbzOTiKVKSBMWZ__NmBMKpV99nh8qRrLHQAOqjqQqZmocZ8KIE6sr3rGNudvKDOr98CFuJ0ju2Z5me-R0wyPAIqXzguq8HTwHaVtN8RcBmRyc-VZKC4p1WrOIz8m7KU7-8twEzX0TboMzTUnO2QaBT3E1TZrN_bnPdMw1aJKwQFbNSp815i"/><div class="flex flex-col min-w-0"><span class="font-headline-sm text-headline-sm text-primary font-semibold tracking-tight truncate leading-tight">BUGA at Service ❤️</span><span class="font-label-sm text-label-sm text-on-surface-variant truncate">Home</span></div></div><div class="flex items-center gap-2 flex-shrink-0"><a class="w-9 h-9 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center relative hover:bg-secondary-fixed transition-colors" data-path="ring-bell" href="#" title="Ring the Bell"><span class="material-symbols-outlined text-[18px]">notifications_active</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-primary ring-2 ring-surface"></span></a><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-20 pb-28 px-margin bg-surface"><div class="flex flex-col w-full gap-space-lg">
+<!-- 1. Warm Personal Greeting & Ambient Aura -->
+<section class="relative overflow-hidden rounded-lg bg-surface-container-lowest p-space-lg shadow-sm flex flex-col gap-space-sm">
+<div class="absolute -right-12 -top-12 w-44 h-44 rounded-full bg-primary-container/20 blur-2xl pointer-events-none"></div>
+<div class="absolute -left-8 -bottom-8 w-36 h-36 rounded-full bg-secondary-container/30 blur-xl pointer-events-none"></div>
+<div class="flex items-center justify-between relative z-10">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-high text-on-surface-variant text-label-sm font-label-sm">
+<span class="material-symbols-outlined text-[15px] text-primary" style="font-variation-settings: 'FILL' 1;">cloud</span>
+<span>Wednesday, Oct 24 • Cozy 68°F</span>
+</div>
+<div class="inline-flex items-center gap-1 text-primary text-label-sm font-label-sm">
+<span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+<span class="font-semibold">Buga is Active</span>
+</div>
+</div>
+<div class="relative z-10 pt-1">
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight leading-snug">
+        Hey, lovely! 💗
+      </h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">
+        Your comfort matters. Let’s see how you’re feeling today.
+      </p>
+</div>
+<!-- Quick Micro Affection Indicator -->
+<div class="relative z-10 mt-2 pt-space-sm flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface">Buga sent a morning hug 32m ago</span>
+</div>
+<button class="px-3 py-1 rounded-full bg-surface-container text-primary font-label-sm text-label-sm hover:bg-primary hover:text-on-primary transition-all duration-200" onclick="sendHugBack(this)" type="button">
+        Hug Back 💕
+      </button>
+</div>
+</section>
+<!-- 4. Prominent "Ring the Bell 🔔" Hero Card -->
+<section class="relative overflow-hidden rounded-lg bg-surface-container-lowest p-space-lg shadow-md">
+<div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-primary-container/40 via-surface-container to-transparent rounded-bl-full pointer-events-none"></div>
+<div class="relative z-10 flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">emergency_heat</span>
+          Ready to summon your favorite person
+        </span>
+<span class="material-symbols-outlined text-primary text-[24px]">bedtime</span>
+</div>
+<div class="flex items-start gap-3">
+<div class="w-12 h-12 rounded-2xl bg-secondary-container text-primary flex items-center justify-center flex-shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[28px] animate-bounce" style="animation-duration: 2.2s;">notifications_active</span>
+</div>
+<div class="flex flex-col min-w-0">
+<h2 class="font-headline-md text-headline-md text-on-surface leading-tight">
+            Need your Buga?
+          </h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">
+            One tap alert. He’ll stop what he’s doing and check in within ~10 mins with treats or comfort.
+          </p>
+</div>
+</div>
+<div class="pt-1">
+<button class="w-full h-14 rounded-full bg-primary text-on-primary font-label-lg text-label-lg shadow-md hover:opacity-95 active:scale-[0.98] transition-all flex items-center justify-center gap-2.5" id="ringBellBtn" onclick="triggerRingBell()">
+<span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">doorbell</span>
+<span>Ring the Bell</span>
+<span class="text-primary-fixed-dim text-body-sm font-normal">• 1-Tap SOS</span>
+</button>
+</div>
+<!-- Live Bell Notification Drawer (Toggled dynamically) -->
+<div class="hidden rounded-2xl bg-tertiary-container/30 p-space-sm text-on-tertiary-container flex items-center gap-2.5" id="bellSentNotice">
+<span class="material-symbols-outlined text-tertiary text-[20px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div class="flex flex-col text-left">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Bell has been rung! 🔔</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Buga's phone is buzzing. He's on his way.</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 2. Cycle Summary Widget -->
+<section class="rounded-lg bg-surface-container-lowest p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+<span class="font-label-md text-label-md uppercase tracking-wider text-primary">Day 14 of Cycle</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface mt-0.5">Ovulation Phase</h2>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Estimated next period in 14 days (Nov 7)</span>
+</div>
+<div class="w-12 h-12 rounded-full bg-surface-container flex flex-col items-center justify-center text-primary">
+<span class="font-headline-sm text-headline-sm leading-none font-bold">14</span>
+<span class="text-[9px] uppercase tracking-tighter text-on-surface-variant font-label-sm">Days Left</span>
+</div>
+</div>
+<!-- Mini Cycle Horizontal Visual Timeline -->
+<div class="flex flex-col gap-2 pt-1">
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm px-1">
+<span>Cycle Timeline</span>
+<span class="text-primary font-semibold">High Fertility Window</span>
+</div>
+<div class="grid grid-cols-7 gap-1.5 p-2 rounded-2xl bg-surface-container-low">
+<!-- Day 11 -->
+<div class="flex flex-col items-center py-1.5 rounded-xl bg-surface-container-lowest text-on-surface-variant">
+<span class="font-label-sm text-[10px]">Sun</span>
+<span class="font-label-md text-label-md font-semibold">21</span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed-dim mt-1"></span>
+</div>
+<!-- Day 12 -->
+<div class="flex flex-col items-center py-1.5 rounded-xl bg-surface-container-lowest text-on-surface-variant">
+<span class="font-label-sm text-[10px]">Mon</span>
+<span class="font-label-md text-label-md font-semibold">22</span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed-dim mt-1"></span>
+</div>
+<!-- Day 13 -->
+<div class="flex flex-col items-center py-1.5 rounded-xl bg-primary-fixed/40 text-on-primary-container">
+<span class="font-label-sm text-[10px]">Tue</span>
+<span class="font-label-md text-label-md font-semibold">23</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container mt-1"></span>
+</div>
+<!-- Day 14 (Today) -->
+<div class="flex flex-col items-center py-1.5 rounded-xl bg-primary text-on-primary shadow-sm scale-105 z-10">
+<span class="font-label-sm text-[10px] text-primary-fixed">Today</span>
+<span class="font-label-md text-label-md font-bold">24</span>
+<span class="material-symbols-outlined text-[10px] mt-0.5" style="font-variation-settings: 'FILL' 1;">spa</span>
+</div>
+<!-- Day 15 -->
+<div class="flex flex-col items-center py-1.5 rounded-xl bg-primary-fixed/40 text-on-primary-container">
+<span class="font-label-sm text-[10px]">Thu</span>
+<span class="font-label-md text-label-md font-semibold">25</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container mt-1"></span>
+</div>
+<!-- Day 16 -->
+<div class="flex flex-col items-center py-1.5 rounded-xl bg-surface-container-lowest text-on-surface-variant">
+<span class="font-label-sm text-[10px]">Fri</span>
+<span class="font-label-md text-label-md font-semibold">26</span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed-dim mt-1"></span>
+</div>
+<!-- Day 17 -->
+<div class="flex flex-col items-center py-1.5 rounded-xl bg-surface-container-lowest text-on-surface-variant">
+<span class="font-label-sm text-[10px]">Sat</span>
+<span class="font-label-md text-label-md font-semibold">27</span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed-dim mt-1"></span>
+</div>
+</div>
+<!-- Timeline Legend Indicators -->
+<div class="flex items-center justify-between text-[11px] font-label-sm text-on-surface-variant px-1 mt-1">
+<div class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span>Fertile window</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-secondary-fixed-dim"></span>
+<span>Predicted</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span>Today (Ovulation)</span>
+</div>
+</div>
+</div>
+<!-- Quick Action Button -->
+<div class="flex items-center gap-3 pt-1">
+<button class="flex-1 h-11 rounded-full bg-surface-container-high text-on-surface font-label-md text-label-md hover:bg-surface-container-highest transition-colors flex items-center justify-center gap-2" type="button">
+<span class="material-symbols-outlined text-[18px] text-primary">edit_calendar</span>
+<span>Log Period / Update</span>
+</button>
+<a class="h-11 px-4 rounded-full bg-secondary-container text-on-secondary-container font-label-md text-label-md hover:bg-secondary-fixed flex items-center justify-center transition-colors" data-path="my-cycle" href="#">
+        Full Cycle
+      </a>
+</div>
+</section>
+<!-- 3. Today's Check-in Summary -->
+<section class="rounded-lg bg-surface-container-lowest p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Today's Balance</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Feelings &amp; Symptoms</h2>
+</div>
+<div class="w-8 h-8 rounded-full bg-tertiary-container/40 text-tertiary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+</div>
+</div>
+<!-- Active Mood & Logged Chips -->
+<div class="flex flex-col gap-2.5">
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Logged Mood:</span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed text-label-md font-label-md">
+<span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">sentiment_satisfied</span>
+          Peaceful &amp; Loved
+        </span>
+</div>
+<div class="flex flex-wrap items-center gap-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Physical:</span>
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px] text-primary">water_drop</span>
+          Mild Cramps
+        </span>
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px] text-tertiary">emoji_food_beverage</span>
+          Craving Warm Tea
+        </span>
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px] text-secondary">battery_3_bar</span>
+          Mild Fatigue
+        </span>
+</div>
+</div>
+<!-- Shortcut button -->
+<a class="w-full h-12 rounded-full bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors flex items-center justify-center gap-2" data-path="my-feelings" href="#">
+<span class="material-symbols-outlined text-[18px] text-primary">add_circle</span>
+<span>+ Check in today (180+ options)</span>
+</a>
+</section>
+<!-- 5. "Something Yummy for You 🍕" Preview -->
+<section class="rounded-lg bg-surface-container-lowest p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-baseline justify-between">
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[20px]">restaurant</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Something Yummy for You 🍕</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+          Curated pure vegetarian comfort picks for today's cravings
+        </p>
+</div>
+</div>
+<!-- Dish Tiles Grid -->
+<div class="flex flex-col gap-3">
+<!-- Dish 1 -->
+<div class="flex items-center gap-3 p-2 rounded-2xl bg-surface-container-low hover:bg-surface-container transition-colors">
+<img class="w-16 h-16 rounded-xl object-cover flex-shrink-0" data-alt="A warm artisan pure vegetarian baked lasagna bubbling with rich melted mozzarella, fresh basil leaves, and creamy marinara sauce in an ivory ceramic dish with gentle morning sunlight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaNXpmjyyDCRPpSm_Q_zOxQjidYMsdqpsDExN5RuYPdznXsAuGbZvlzzwT1OwyOt_MhT1uZ5QU3jnOuBFnXExZw6byfDH12jmLoDF7NpvsitEoDJ__l6bGNsYH50CW5wXwo68mjr7ls5j_QoKNAhlUou0xaOWjCk1hkEp6k20P1tqdkPIRGv0tlVFhwMTAi4Zfwh5unac1MRyMOOdRZM7bV-cV778y0DXDotG9hReoZA40SNp_FafEwA"/>
+<div class="flex flex-col flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-title-md text-on-surface truncate">Warm Veg Lasagna</span>
+<span class="font-label-sm text-label-sm text-tertiary flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[13px]" style="font-variation-settings: 'FILL' 1;">eco</span>
+              Pure Veg
+            </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Layered zucchini, ricotta &amp; hearty herbs</p>
+<div class="flex items-center justify-between mt-1">
+<span class="font-label-sm text-label-sm text-primary font-semibold">Comfort rating: 10/10</span>
+<button class="font-label-sm text-label-sm px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-semibold hover:bg-primary hover:text-on-primary transition-colors" onclick="orderCravings('Warm Veg Lasagna')" type="button">
+              Request Buga
+            </button>
+</div>
+</div>
+</div>
+<!-- Dish 2 -->
+<div class="flex items-center gap-3 p-2 rounded-2xl bg-surface-container-low hover:bg-surface-container transition-colors">
+<img class="w-16 h-16 rounded-xl object-cover flex-shrink-0" data-alt="A gourmet paneer tikka toasted wrap sliced in half showing tender marinated cottage cheese, crunchy bell peppers, mint yogurt sauce, wrapped in soft flatbread on a boutique wooden board." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCz9WEvzutK6XHNUx5cYyhVpcvXp33JzLZEwJNcep-6ZIEY9pPyU0SSOwDpWztzuBPmOMIFxL5x3XTV6HCgbmZ0EfxIf5Ty4fwpEP9CMuD3qw9ktpEjwcd_zJiyOkD1ZqGs1iDX1aXHHo3l0VCwukMxk-d5TciSlGWoQXOnE602W7o1g4Zc6G317J6wFGKpfzLD3TrchDgtGtr5q7FhzGfsU_usGzn6iy9Tx3tunvhKTZusdu8SFAjp3Q"/>
+<div class="flex flex-col flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-title-md text-on-surface truncate">Paneer Tikka Wrap</span>
+<span class="font-label-sm text-label-sm text-tertiary flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[13px]" style="font-variation-settings: 'FILL' 1;">eco</span>
+              High Protein
+            </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Grilled spiced cottage cheese &amp; fresh greens</p>
+<div class="flex items-center justify-between mt-1">
+<span class="font-label-sm text-label-sm text-primary font-semibold">Soothing &amp; filling</span>
+<button class="font-label-sm text-label-sm px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-semibold hover:bg-primary hover:text-on-primary transition-colors" onclick="orderCravings('Paneer Tikka Wrap')" type="button">
+              Request Buga
+            </button>
+</div>
+</div>
+</div>
+<!-- Dish 3 -->
+<div class="flex items-center gap-3 p-2 rounded-2xl bg-surface-container-low hover:bg-surface-container transition-colors">
+<img class="w-16 h-16 rounded-xl object-cover flex-shrink-0" data-alt="A comforting ceramic mug filled with thick velvet dark hot chocolate topped with fluffy vegan marshmallows, dusted with cinnamon powder against a cozy warm pastel rose aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMM6OIHy8uVRSdCt9FqMclNUPqLJehh0m0YjuSeq2SCK1H5yRcRO3YZ_wEPw4JdHv3qc5DLXVV7bx5PYQfjpsK9hRE_gwbZldiWBXj-HZ3eHikHvg0GFXFXaQ3Hco4Nru_M-dHCrL06tCvVfDaoWRerjxdejhowV_D7avpUwq9xpkXI1YeEFxXY5yBnIdDpt9HguWQst0jqQpyNw8Rt9pSfmGbd-n4KW0CpLdnYuMdb-CYxS1WUqD1DA"/>
+<div class="flex flex-col flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-title-md text-on-surface truncate">Sweet Hot Chocolate</span>
+<span class="font-label-sm text-label-sm text-secondary flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[13px]">favorite</span>
+              Cramp relief
+            </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">With warm oat milk &amp; soft marshmallows</p>
+<div class="flex items-center justify-between mt-1">
+<span class="font-label-sm text-label-sm text-primary font-semibold">Instant mood lifter</span>
+<button class="font-label-sm text-label-sm px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-semibold hover:bg-primary hover:text-on-primary transition-colors" onclick="orderCravings('Sweet Hot Chocolate')" type="button">
+              Request Buga
+            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom link -->
+<a class="text-center font-label-md text-label-md text-primary hover:underline pt-1 flex items-center justify-center gap-1" href="#">
+<span>Explore 100+ Veg Dishes</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</section>
+<!-- 6. "Little Things That Help" Carousel / Stack -->
+<section class="rounded-lg bg-surface-container-lowest p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Little Things That Help 🌸</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Recommended care for your luteal prep</p>
+</div>
+<span class="material-symbols-outlined text-primary text-[22px]">self_improvement</span>
+</div>
+<!-- Horizontal Scrolling Carousel Cards -->
+<div class="flex gap-3 overflow-x-auto pb-2 -mx-2 px-2">
+<!-- Card 1 -->
+<div class="min-w-[200px] max-w-[220px] p-3.5 rounded-2xl bg-surface-container-low flex flex-col justify-between flex-shrink-0">
+<div class="flex flex-col gap-2">
+<div class="w-9 h-9 rounded-xl bg-primary-container text-on-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">hot_tub</span>
+</div>
+<span class="font-title-md text-title-md text-on-surface leading-snug">Warm compress on abdomen</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Eases subtle uterine tension and relaxes pelvic muscle fibers.</p>
+</div>
+<button class="mt-3 text-left font-label-sm text-label-sm text-primary font-semibold" type="button">Buga has pad ready →</button>
+</div>
+<!-- Card 2 -->
+<div class="min-w-[200px] max-w-[220px] p-3.5 rounded-2xl bg-surface-container-low flex flex-col justify-between flex-shrink-0">
+<div class="flex flex-col gap-2">
+<div class="w-9 h-9 rounded-xl bg-tertiary-container text-on-tertiary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">local_cafe</span>
+</div>
+<span class="font-title-md text-title-md text-on-surface leading-snug">Sip peppermint tea</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Natural antispasmodic qualities soothe digestion and bloating.</p>
+</div>
+<button class="mt-3 text-left font-label-sm text-label-sm text-primary font-semibold" type="button">Brew reminder →</button>
+</div>
+<!-- Card 3 -->
+<div class="min-w-[200px] max-w-[220px] p-3.5 rounded-2xl bg-surface-container-low flex flex-col justify-between flex-shrink-0">
+<div class="flex flex-col gap-2">
+<div class="w-9 h-9 rounded-xl bg-secondary-container text-on-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">night_shelter</span>
+</div>
+<span class="font-title-md text-title-md text-on-surface leading-snug">Take a 20-min cozy nap</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Quick hormone re-alignment with gentle white noise.</p>
+</div>
+<button class="mt-3 text-left font-label-sm text-label-sm text-primary font-semibold" type="button">Start silence timer →</button>
+</div>
+</div>
+</section>
+<!-- 7. History Card -->
+<section class="rounded-lg bg-surface-container-lowest p-space-lg shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span class="uppercase tracking-wider font-semibold">Last Loving Check-in</span>
+<span>Yesterday, 8:30 PM</span>
+</div>
+<div class="p-3.5 rounded-2xl bg-surface-container-high/60 flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-[22px] flex-shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">format_quote</span>
+<div class="flex flex-col">
+<p class="font-body-md text-body-md italic text-on-surface leading-relaxed">
+          “Gave foot massage and tucked her in with lavender hot water bottle. She felt peaceful and safe.”
+        </p>
+<span class="font-label-sm text-label-sm text-primary mt-2 font-semibold">— Logged with devotion by Buga</span>
+</div>
+</div>
+</section>
+</div>
+<script>
+  function triggerRingBell() {
+    const btn = document.getElementById('ringBellBtn');
+    const notice = document.getElementById('bellSentNotice');
+    
+    // Tactile animation
+    btn.classList.add('scale-95');
+    setTimeout(() => {
+      btn.classList.remove('scale-95');
+      btn.innerHTML = `
+        <span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">check</span>
+        <span>Bell Ringing...</span>
+      `;
+      btn.classList.replace('bg-primary', 'bg-tertiary');
+      notice.classList.remove('hidden');
+    }, 180);
+
+    setTimeout(() => {
+      btn.innerHTML = `
+        <span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">doorbell</span>
+        <span>Ring Again</span>
+        <span class="text-primary-fixed-dim text-body-sm font-normal">• 1-Tap SOS</span>
+      `;
+      btn.classList.replace('bg-tertiary', 'bg-primary');
+    }, 6000);
+  }
+
+  function sendHugBack(buttonElement) {
+    buttonElement.textContent = "Hug Sent! 💖";
+    buttonElement.classList.add('bg-primary', 'text-on-primary');
+    setTimeout(() => {
+      buttonElement.textContent = "Hug Back 💕";
+      buttonElement.classList.remove('bg-primary', 'text-on-primary');
+    }, 3000);
+  }
+
+  function orderCravings(dishName) {
+    alert("Request for '" + dishName + "' sent to Buga! He's already on it ❤️");
+  }
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_-2px_12px_rgba(135,77,95,0.06)]" data-active-classes="text-primary font-semibold"><div class="h-16 px-space-sm flex items-center justify-around"><a aria-current="page" class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] transition-colors text-primary font-semibold" data-path="home" href="#"><span class="material-symbols-outlined text-[22px]">favorite</span><span class="font-label-sm text-label-sm mt-0.5">Home</span></a><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] text-on-surface-variant transition-colors" data-path="my-cycle" href="#"><span class="material-symbols-outlined text-[22px]">calendar_month</span><span class="font-label-sm text-label-sm mt-0.5">My Cycle</span></a><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] text-on-surface-variant transition-colors" data-path="my-feelings" href="#"><span class="material-symbols-outlined text-[22px]">mood</span><span class="font-label-sm text-label-sm mt-0.5">Feelings</span></a><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] text-on-surface-variant transition-colors" data-path="more-menu" href="#"><span class="material-symbols-outlined text-[22px]">grid_view</span><span class="font-label-sm text-label-sm mt-0.5">More</span></a></div></nav></body></html>

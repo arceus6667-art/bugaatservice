@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-surface": "#251723", "on-primary-container": "#6b3547", "on-secondary-fixed-variant": "#484553", "secondary-fixed": "#e6e0f2", "primary-fixed": "#ffd9e2", "on-tertiary-fixed-variant": "#394b39", "surface-tint": "#874d5f", "on-background": "#251723", "secondary-fixed-dim": "#c9c4d5", "surface-container-lowest": "#ffffff", "on-secondary-container": "#666271", "error-container": "#ffdad6", "tertiary-container": "#a5baa2", "primary-container": "#e8a0b5", "surface": "#fff7fa", "on-error-container": "#93000a", "surface-container-highest": "#f4dced", "on-tertiary-fixed": "#0e1f10", "on-primary-fixed-variant": "#6c3648", "inverse-on-surface": "#ffebf9", "surface-container-high": "#fae1f3", "surface-container-low": "#ffeff9", "tertiary-fixed-dim": "#b7ccb4", "on-secondary-fixed": "#1c1a26", "surface-bright": "#fff7fa", "on-primary-fixed": "#370a1d", "background": "#fff7fa", "on-secondary": "#ffffff", "primary-fixed-dim": "#fcb2c7", "on-primary": "#ffffff", "surface-variant": "#f4dced", "outline": "#837377", "on-tertiary": "#ffffff", "secondary-container": "#e6e0f2", "inverse-surface": "#3b2c39", "surface-container": "#ffe7f8", "secondary": "#605c6b", "on-tertiary-container": "#384b38", "tertiary-fixed": "#d3e8cf", "surface-dim": "#ebd3e5", "primary": "#874d5f", "error": "#ba1a1a", "on-error": "#ffffff", "outline-variant": "#d5c2c6", "inverse-primary": "#fcb2c7", "tertiary": "#50634f", "on-surface-variant": "#514347" }, "borderRadius": { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, "spacing": { "margin": "1.25rem", "space-xl": "2.25rem", "space-sm": "0.5rem", "gutter-tablet": "1.5rem", "space-md": "1rem", "space-lg": "1.5rem", "space-xs": "0.25rem", "gutter": "1rem", "margin-tablet": "2rem" }, "fontFamily": { "body-md": ["Plus Jakarta Sans"], "display-lg": ["Playfair Display"], "headline-lg": ["Playfair Display"], "body-lg": ["Plus Jakarta Sans"], "display-lg-mobile": ["Playfair Display"], "title-md": ["Plus Jakarta Sans"], "headline-md": ["Playfair Display"], "headline-sm": ["Playfair Display"], "label-sm": ["Plus Jakarta Sans"], "label-md": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"], "label-lg": ["Plus Jakarta Sans"] }, "fontSize": { "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "headline-lg": ["28px", { "lineHeight": "36px", "fontWeight": "600" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "display-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "title-md": ["16px", { "lineHeight": "22px", "fontWeight": "600" }], "headline-md": ["22px", { "lineHeight": "30px", "fontWeight": "500" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "500" }], "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "500" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }] } } } };</script><style>@layer base { html, body { margin: 0; padding: 0; } .pb-safe { padding-bottom: env(safe-area-inset-bottom, 16px); } .pt-safe { padding-top: env(safe-area-inset-top, 0px); } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col selection:bg-primary-container selection:text-on-primary-container"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(135,77,95,0.06)]"><div class="px-margin h-6 flex items-center justify-between text-on-surface-variant font-label-sm text-[12px] pt-1"><span class="font-semibold">9:41</span><div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[14px]">signal_cellular_alt</span><span class="font-medium text-[11px]">5G</span><span class="material-symbols-outlined text-[14px]">wifi</span><span class="material-symbols-outlined text-[16px]">battery_full</span></div></div><div class="h-16 px-margin flex items-center justify-between"><div class="flex items-center gap-2.5 min-w-0"><img alt="BUGA at Service Logo" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1XkUuXKSM03fIJ7-uUbf65F8BI2COJIOwA6Cd6psCeILxFFrDMzsUgPE43x3lGPWE7PH6xXZsbzOTiKVKSBMWZ__NmBMKpV99nh8qRrLHQAOqjqQqZmocZ8KIE6sr3rGNudvKDOr98CFuJ0ju2Z5me-R0wyPAIqXzguq8HTwHaVtN8RcBmRyc-VZKC4p1WrOIz8m7KU7-8twEzX0TboMzTUnO2QaBT3E1TZrN_bnPdMw1aJKwQFbNSp815i"/><div class="flex flex-col min-w-0"><span class="font-headline-sm text-headline-sm text-primary font-semibold tracking-tight truncate leading-tight">BUGA at Service ❤️</span><span class="font-label-sm text-label-sm text-on-surface-variant truncate">My Feelings</span></div></div><div class="flex items-center gap-2 flex-shrink-0"><a class="w-9 h-9 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center relative hover:bg-secondary-fixed transition-colors" data-path="ring-bell" href="#" title="Ring the Bell"><span class="material-symbols-outlined text-[18px]">notifications_active</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-primary ring-2 ring-surface"></span></a><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-20 pb-28 px-margin bg-surface"><div class="flex flex-col w-full gap-5 pb-12">
+<!-- Interactive Feedback Toast -->
+<div class="fixed top-24 left-1/2 -translate-x-1/2 z-50 bg-inverse-surface text-inverse-on-surface px-5 py-3 rounded-full shadow-2xl flex items-center gap-3 transition-all duration-300 opacity-0 pointer-events-none translate-y-[-8px]" id="saveToast">
+<span class="material-symbols-outlined text-primary-container text-[20px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="font-body-md text-body-md font-medium">Check-in tenderly saved for today ❤️</span>
+</div>
+<!-- Header & Live Counter Section -->
+<section class="bg-surface-container-lowest p-space-lg rounded-lg shadow-sm flex flex-col gap-4">
+<div class="flex items-start justify-between gap-3">
+<div class="flex flex-col min-w-0">
+<h1 class="font-headline-md text-headline-md text-primary font-semibold leading-tight">
+          Daily Check-in &amp; Feelings 💭
+        </h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">
+          Select anything you're experiencing today. No judgment, only love.
+        </p>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary-container/40 flex items-center justify-center flex-shrink-0 text-primary">
+<span class="material-symbols-outlined text-[22px]">spa</span>
+</div>
+</div>
+<!-- Live Counter Pill Bar -->
+<div class="flex items-center justify-between bg-surface-container-low px-4 py-2.5 rounded-full">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="font-label-lg text-label-lg text-on-surface font-semibold" id="selectedCounterText">4 items selected</span>
+</div>
+<button class="font-label-sm text-label-sm text-primary hover:text-on-primary-container font-semibold transition-colors px-2 py-1 rounded-full hover:bg-surface-container-highest" id="clearAllBtn" type="button">
+        Clear all
+      </button>
+</div>
+<!-- Search Input Bar -->
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
+<input class="w-full pl-10 pr-10 py-3 rounded-full bg-surface-container-low text-on-surface placeholder:text-outline/70 font-body-md text-body-md focus:outline-none focus:bg-surface-container-lowest focus:shadow-md transition-all" id="tagSearchInput" placeholder="Search 180+ moods, sensations, cravings..." type="text"/>
+<button class="absolute right-3.5 top-1/2 -translate-y-1/2 text-outline hover:text-on-surface hidden" id="clearSearchBtn" type="button">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+</section>
+<!-- Quick Filter Category Tabs -->
+<div class="flex gap-2 overflow-x-auto pb-1 scrollbar-none -mx-margin px-margin">
+<button class="cat-pill active flex-shrink-0 px-4 py-2 rounded-full font-label-md text-label-md bg-primary text-on-primary shadow-sm transition-all flex items-center gap-1.5" data-filter="all" type="button">
+<span class="material-symbols-outlined text-[16px]">all_inclusive</span>
+<span>All (184)</span>
+</button>
+<button class="cat-pill flex-shrink-0 px-4 py-2 rounded-full font-label-md text-label-md bg-surface-container-lowest text-on-surface-variant hover:bg-secondary-container transition-all flex items-center gap-1.5" data-filter="cat-moods" type="button">
+<span class="material-symbols-outlined text-[16px]">mood</span>
+<span>Moods (45)</span>
+</button>
+<button class="cat-pill flex-shrink-0 px-4 py-2 rounded-full font-label-md text-label-md bg-surface-container-lowest text-on-surface-variant hover:bg-secondary-container transition-all flex items-center gap-1.5" data-filter="cat-physical" type="button">
+<span class="material-symbols-outlined text-[16px]">healing</span>
+<span>Physical (45)</span>
+</button>
+<button class="cat-pill flex-shrink-0 px-4 py-2 rounded-full font-label-md text-label-md bg-surface-container-lowest text-on-surface-variant hover:bg-secondary-container transition-all flex items-center gap-1.5" data-filter="cat-period" type="button">
+<span class="material-symbols-outlined text-[16px]">water_drop</span>
+<span>Flow (26)</span>
+</button>
+<button class="cat-pill flex-shrink-0 px-4 py-2 rounded-full font-label-md text-label-md bg-surface-container-lowest text-on-surface-variant hover:bg-secondary-container transition-all flex items-center gap-1.5" data-filter="cat-energy" type="button">
+<span class="material-symbols-outlined text-[16px]">bedtime</span>
+<span>Sleep &amp; Food (33)</span>
+</button>
+<button class="cat-pill flex-shrink-0 px-4 py-2 rounded-full font-label-md text-label-md bg-surface-container-lowest text-on-surface-variant hover:bg-secondary-container transition-all flex items-center gap-1.5" data-filter="cat-comfort" type="button">
+<span class="material-symbols-outlined text-[16px]">volunteer_activism</span>
+<span>Care (20)</span>
+</button>
+<button class="cat-pill flex-shrink-0 px-4 py-2 rounded-full font-label-md text-label-md bg-surface-container-lowest text-on-surface-variant hover:bg-secondary-container transition-all flex items-center gap-1.5" data-filter="cat-life" type="button">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+<span>Life (15)</span>
+</button>
+</div>
+<!-- Tag Catalog Container -->
+<div class="flex flex-col gap-6" id="catalogRoot">
+<!-- Category A: Moods & Emotions (45 items) -->
+<section class="category-block bg-surface-container-lowest p-space-lg rounded-lg shadow-sm flex flex-col gap-3" data-cat="cat-moods">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+</span>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Moods &amp; Emotions</h2>
+<span class="font-body-sm text-body-sm text-outline">Emotional climate &amp; feelings</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm px-2.5 py-1 rounded-full bg-surface-container-low text-on-surface-variant">45 tags</span>
+</div>
+<div class="tag-grid flex flex-wrap gap-2 pt-1">
+<!-- 45 Distinct items -->
+<button aria-pressed="true" class="tag-chip is-selected" data-tag-id="m_happy" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Happy</span>
+</button>
+<button aria-pressed="true" class="tag-chip is-selected" data-tag-id="m_calm" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Calm</span>
+</button>
+<button class="tag-chip" data-tag-id="m_relaxed" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Relaxed</span>
+</button>
+<button class="tag-chip" data-tag-id="m_loved" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Loved</span>
+</button>
+<button class="tag-chip" data-tag-id="m_appreciated" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Appreciated</span>
+</button>
+<button class="tag-chip" data-tag-id="m_excited" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Excited</span>
+</button>
+<button class="tag-chip" data-tag-id="m_playful" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Playful</span>
+</button>
+<button class="tag-chip" data-tag-id="m_hopeful" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Hopeful</span>
+</button>
+<button class="tag-chip" data-tag-id="m_confident" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Confident</span>
+</button>
+<button class="tag-chip" data-tag-id="m_motivated" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Motivated</span>
+</button>
+<button class="tag-chip" data-tag-id="m_peaceful" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Peaceful</span>
+</button>
+<button class="tag-chip" data-tag-id="m_grateful" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Grateful</span>
+</button>
+<button class="tag-chip" data-tag-id="m_affectionate" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Affectionate</span>
+</button>
+<button class="tag-chip" data-tag-id="m_content" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Content</span>
+</button>
+<button class="tag-chip" data-tag-id="m_energetic" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Energetic</span>
+</button>
+<button class="tag-chip" data-tag-id="m_focused" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Focused</span>
+</button>
+<button class="tag-chip" data-tag-id="m_curious" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Curious</span>
+</button>
+<button class="tag-chip" data-tag-id="m_creative" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Creative</span>
+</button>
+<button class="tag-chip" data-tag-id="m_sentimental" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Sentimental</span>
+</button>
+<button class="tag-chip" data-tag-id="m_emotional" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Emotional</span>
+</button>
+<button class="tag-chip" data-tag-id="m_sensitive" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Sensitive</span>
+</button>
+<button class="tag-chip" data-tag-id="m_irritable" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Irritable</span>
+</button>
+<button class="tag-chip" data-tag-id="m_frustrated" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Frustrated</span>
+</button>
+<button class="tag-chip" data-tag-id="m_anxious" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Anxious</span>
+</button>
+<button class="tag-chip" data-tag-id="m_worried" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Worried</span>
+</button>
+<button class="tag-chip" data-tag-id="m_overwhelmed" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Overwhelmed</span>
+</button>
+<button class="tag-chip" data-tag-id="m_restless" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Restless</span>
+</button>
+<button class="tag-chip" data-tag-id="m_sad" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Sad</span>
+</button>
+<button class="tag-chip" data-tag-id="m_lonely" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Lonely</span>
+</button>
+<button class="tag-chip" data-tag-id="m_disappointed" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Disappointed</span>
+</button>
+<button class="tag-chip" data-tag-id="m_upset" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Upset</span>
+</button>
+<button class="tag-chip" data-tag-id="m_moody" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Moody</span>
+</button>
+<button class="tag-chip" data-tag-id="m_unmotivated" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Unmotivated</span>
+</button>
+<button class="tag-chip" data-tag-id="m_mentally_tired" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Mentally tired</span>
+</button>
+<button class="tag-chip" data-tag-id="m_need_reassurance" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Need reassurance</span>
+</button>
+<button class="tag-chip" data-tag-id="m_need_affection" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Need affection</span>
+</button>
+<button class="tag-chip" data-tag-id="m_need_space" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Need space</span>
+</button>
+<button class="tag-chip" data-tag-id="m_need_company" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Need company</span>
+</button>
+<button class="tag-chip" data-tag-id="m_need_encouragement" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Need encouragement</span>
+</button>
+<button class="tag-chip" data-tag-id="m_need_comforting_talk" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Need a comforting conversation</span>
+</button>
+<button class="tag-chip" data-tag-id="m_vulnerable" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Vulnerable</span>
+</button>
+<button class="tag-chip" data-tag-id="m_overstimulated" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Overstimulated</span>
+</button>
+<button class="tag-chip" data-tag-id="m_insecure" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Insecure</span>
+</button>
+<button class="tag-chip" data-tag-id="m_tenderhearted" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Tenderhearted</span>
+</button>
+<button class="tag-chip" data-tag-id="m_cheerful" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Cheerful</span>
+</button>
+</div>
+</section>
+<!-- Category B: Physical Symptoms & Discomfort (45 items) -->
+<section class="category-block bg-surface-container-lowest p-space-lg rounded-lg shadow-sm flex flex-col gap-3" data-cat="cat-physical">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-8 h-8 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed">
+<span class="material-symbols-outlined text-[18px]">healing</span>
+</span>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Physical Symptoms &amp; Discomfort</h2>
+<span class="font-body-sm text-body-sm text-outline">Body awareness &amp; sensations</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm px-2.5 py-1 rounded-full bg-surface-container-low text-on-surface-variant">45 tags</span>
+</div>
+<div class="tag-grid flex flex-wrap gap-2 pt-1">
+<button aria-pressed="true" class="tag-chip is-selected" data-tag-id="p_bloating" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Bloating</span>
+</button>
+<button aria-pressed="true" class="tag-chip is-selected" data-tag-id="p_cramps" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Abdominal cramps</span>
+</button>
+<button class="tag-chip" data-tag-id="p_lower_back" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Lower-back discomfort</span>
+</button>
+<button class="tag-chip" data-tag-id="p_headache" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Headache</span>
+</button>
+<button class="tag-chip" data-tag-id="p_migraine" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Migraine-like headache</span>
+</button>
+<button class="tag-chip" data-tag-id="p_breast_tender" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Breast tenderness</span>
+</button>
+<button class="tag-chip" data-tag-id="p_pelvic_disc" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Pelvic discomfort</span>
+</button>
+<button class="tag-chip" data-tag-id="p_nausea" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Mild nausea</span>
+</button>
+<button class="tag-chip" data-tag-id="p_puffy" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Feeling puffy</span>
+</button>
+<button class="tag-chip" data-tag-id="p_gas" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Gas</span>
+</button>
+<button class="tag-chip" data-tag-id="p_constipation" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Constipation</span>
+</button>
+<button class="tag-chip" data-tag-id="p_loose_stools" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Loose stools</span>
+</button>
+<button class="tag-chip" data-tag-id="p_digestive" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Digestive discomfort</span>
+</button>
+<button class="tag-chip" data-tag-id="p_muscle_aches" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Muscle aches</span>
+</button>
+<button class="tag-chip" data-tag-id="p_joint_disc" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Joint discomfort</span>
+</button>
+<button class="tag-chip" data-tag-id="p_fatigue" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Fatigue</span>
+</button>
+<button class="tag-chip" data-tag-id="p_weakness" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Weakness</span>
+</button>
+<button class="tag-chip" data-tag-id="p_dizziness" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Dizziness</span>
+</button>
+<button class="tag-chip" data-tag-id="p_skin_breakouts" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Skin breakouts</span>
+</button>
+<button class="tag-chip" data-tag-id="p_oily_skin" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Oily skin</span>
+</button>
+<button class="tag-chip" data-tag-id="p_dry_skin" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Dry skin</span>
+</button>
+<button class="tag-chip" data-tag-id="p_breast_heavy" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Breast heaviness</span>
+</button>
+<button class="tag-chip" data-tag-id="p_abd_heavy" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Abdominal heaviness</span>
+</button>
+<button class="tag-chip" data-tag-id="p_smell_sens" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Increased sensitivity to smells</span>
+</button>
+<button class="tag-chip" data-tag-id="p_warm" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Feeling unusually warm</span>
+</button>
+<button class="tag-chip" data-tag-id="p_cold" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Feeling unusually cold</span>
+</button>
+<button class="tag-chip" data-tag-id="p_neck_tension" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Neck tension</span>
+</button>
+<button class="tag-chip" data-tag-id="p_shoulder_tension" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Shoulder tension</span>
+</button>
+<button class="tag-chip" data-tag-id="p_leg_disc" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Leg discomfort</span>
+</button>
+<button class="tag-chip" data-tag-id="p_body_aches" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Body aches</span>
+</button>
+<button class="tag-chip" data-tag-id="p_appetite_changes" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Appetite changes</span>
+</button>
+<button class="tag-chip" data-tag-id="p_water_retention" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Water-retention sensation</span>
+</button>
+<button class="tag-chip" data-tag-id="p_abd_tender" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Abdominal tenderness</span>
+</button>
+<button class="tag-chip" data-tag-id="p_uncomfortable" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Feeling physically uncomfortable</span>
+</button>
+<button class="tag-chip" data-tag-id="p_craving_rest" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Craving rest</span>
+</button>
+<button class="tag-chip" data-tag-id="p_chills" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Chills</span>
+</button>
+<button class="tag-chip" data-tag-id="p_hot_flashes" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Hot flashes</span>
+</button>
+<button class="tag-chip" data-tag-id="p_sore_throat" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Sore throat</span>
+</button>
+<button class="tag-chip" data-tag-id="p_stiff_joints" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Stiff joints</span>
+</button>
+<button class="tag-chip" data-tag-id="p_restless_legs" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Restless legs</span>
+</button>
+<button class="tag-chip" data-tag-id="p_heavy_limbs" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Heavy limbs</span>
+</button>
+<button class="tag-chip" data-tag-id="p_jaw_clenching" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Jaw clenching</span>
+</button>
+<button class="tag-chip" data-tag-id="p_eye_strain" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Eye strain</span>
+</button>
+<button class="tag-chip" data-tag-id="p_dry_mouth" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Dry mouth</span>
+</button>
+<button class="tag-chip" data-tag-id="p_sensitive_skin" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Sensitive skin</span>
+</button>
+</div>
+</section>
+<!-- Discomfort Intensity Selector (Attached contextually near physical) -->
+<section class="bg-surface-container-high/60 p-space-lg rounded-lg shadow-sm flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">tune</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Discomfort Intensity</h3>
+</div>
+<span class="font-label-md text-label-md px-3 py-1 rounded-full bg-surface-container-lowest text-primary font-semibold shadow-xs" id="intensityLabel">
+          Mild (1)
+        </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+        How intense is your physical sensation right now? We'll adjust your daily care pace.
+      </p>
+<div class="grid grid-cols-4 gap-2 pt-1">
+<button class="intensity-btn active py-2.5 px-1 rounded-xl bg-primary text-on-primary font-label-md text-label-md flex flex-col items-center justify-center gap-0.5 shadow-sm transition-all" data-intensity="1" type="button">
+<span class="font-semibold">Mild</span>
+<span class="text-[10px] opacity-80">Level 1</span>
+</button>
+<button class="intensity-btn py-2.5 px-1 rounded-xl bg-surface-container-lowest text-on-surface hover:bg-surface-container font-label-md text-label-md flex flex-col items-center justify-center gap-0.5 transition-all" data-intensity="2" type="button">
+<span class="font-semibold">Moderate</span>
+<span class="text-[10px] text-outline">Level 2</span>
+</button>
+<button class="intensity-btn py-2.5 px-1 rounded-xl bg-surface-container-lowest text-on-surface hover:bg-surface-container font-label-md text-label-md flex flex-col items-center justify-center gap-0.5 transition-all" data-intensity="3" type="button">
+<span class="font-semibold">Uncomfy</span>
+<span class="text-[10px] text-outline">Level 3</span>
+</button>
+<button class="intensity-btn py-2.5 px-1 rounded-xl bg-surface-container-lowest text-on-surface hover:bg-surface-container font-label-md text-label-md flex flex-col items-center justify-center gap-0.5 transition-all" data-intensity="4" type="button">
+<span class="font-semibold">Intense</span>
+<span class="text-[10px] text-outline">Level 4</span>
+</button>
+</div>
+</section>
+<!-- Category C: Period Flow & Discharge (26 items) -->
+<section class="category-block bg-surface-container-lowest p-space-lg rounded-lg shadow-sm flex flex-col gap-3" data-cat="cat-period">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-8 h-8 rounded-full bg-primary-container/50 flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined text-[18px]">water_drop</span>
+</span>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Period Flow &amp; Discharge</h2>
+<span class="font-body-sm text-body-sm text-outline">Cycle status &amp; moisture</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm px-2.5 py-1 rounded-full bg-surface-container-low text-on-surface-variant">26 tags</span>
+</div>
+<div class="tag-grid flex flex-wrap gap-2 pt-1">
+<button class="tag-chip" data-tag-id="f_no_bleed" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>No bleeding</span>
+</button>
+<button class="tag-chip" data-tag-id="f_spotting" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Spotting</span>
+</button>
+<button class="tag-chip" data-tag-id="f_light" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Light flow</span>
+</button>
+<button class="tag-chip" data-tag-id="f_medium" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Medium flow</span>
+</button>
+<button class="tag-chip" data-tag-id="f_heavy" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Heavy flow</span>
+</button>
+<button class="tag-chip" data-tag-id="f_started_today" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Flow started today</span>
+</button>
+<button class="tag-chip" data-tag-id="f_ended_today" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Flow ended today</span>
+</button>
+<button class="tag-chip" data-tag-id="f_getting_lighter" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Flow is getting lighter</span>
+</button>
+<button class="tag-chip" data-tag-id="f_getting_heavier" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Flow is getting heavier</span>
+</button>
+<button class="tag-chip" data-tag-id="f_intermittent" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Intermittent flow</span>
+</button>
+<button class="tag-chip" data-tag-id="f_brown_spot" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Brown spotting</span>
+</button>
+<button class="tag-chip" data-tag-id="f_pink_spot" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Pink spotting</span>
+</button>
+<button class="tag-chip" data-tag-id="f_red_bleed" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Red bleeding</span>
+</button>
+<button class="tag-chip" data-tag-id="f_dark_red" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Dark-red bleeding</span>
+</button>
+<button class="tag-chip" data-tag-id="f_watery_disch" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Watery discharge</span>
+</button>
+<button class="tag-chip" data-tag-id="f_creamy_disch" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Creamy discharge</span>
+</button>
+<button class="tag-chip" data-tag-id="f_clear_disch" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Clear discharge</span>
+</button>
+<button class="tag-chip" data-tag-id="f_white_disch" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>White discharge</span>
+</button>
+<button class="tag-chip" data-tag-id="f_stretchy_disch" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Stretchy discharge</span>
+</button>
+<button class="tag-chip" data-tag-id="f_sticky_disch" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Sticky discharge</span>
+</button>
+<button class="tag-chip" data-tag-id="f_thicker" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Thicker-than-usual discharge</span>
+</button>
+<button class="tag-chip" data-tag-id="f_less" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Less discharge than usual</span>
+</button>
+<button class="tag-chip" data-tag-id="f_more" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>More discharge than usual</span>
+</button>
+<button class="tag-chip" data-tag-id="f_pattern_change" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Change in usual discharge pattern</span>
+</button>
+<button class="tag-chip" data-tag-id="f_odor" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Unusual odor noticed</span>
+</button>
+<button class="tag-chip" data-tag-id="f_irritation" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Irritation or itching noticed</span>
+</button>
+</div>
+</section>
+<!-- Category D: Energy, Sleep & Appetite (33 items) -->
+<section class="category-block bg-surface-container-lowest p-space-lg rounded-lg shadow-sm flex flex-col gap-3" data-cat="cat-energy">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-8 h-8 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed">
+<span class="material-symbols-outlined text-[18px]">restaurant</span>
+</span>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Energy, Sleep &amp; Appetite</h2>
+<span class="font-body-sm text-body-sm text-outline">Rest levels and food cravings</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm px-2.5 py-1 rounded-full bg-surface-container-low text-on-surface-variant">33 tags</span>
+</div>
+<div class="tag-grid flex flex-wrap gap-2 pt-1">
+<button class="tag-chip" data-tag-id="e_high_energy" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>High energy</span>
+</button>
+<button class="tag-chip" data-tag-id="e_normal_energy" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Normal energy</span>
+</button>
+<button class="tag-chip" data-tag-id="e_low_energy" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Low energy</span>
+</button>
+<button class="tag-chip" data-tag-id="e_need_nap" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Need a nap</span>
+</button>
+<button class="tag-chip" data-tag-id="e_poor_sleep" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Poor sleep</span>
+</button>
+<button class="tag-chip" data-tag-id="e_good_sleep" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Good sleep</span>
+</button>
+<button class="tag-chip" data-tag-id="e_trouble_fall_sleep" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Trouble falling asleep</span>
+</button>
+<button class="tag-chip" data-tag-id="e_woke_frequently" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Woke up frequently</span>
+</button>
+<button class="tag-chip" data-tag-id="e_refreshed" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Feeling refreshed</span>
+</button>
+<button class="tag-chip" data-tag-id="e_sleepy" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Sleepy</span>
+</button>
+<button class="tag-chip" data-tag-id="e_diff_conc" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Difficulty concentrating</span>
+</button>
+<button class="tag-chip" data-tag-id="e_brain_fog" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Brain fog</span>
+</button>
+<button class="tag-chip" data-tag-id="e_productive" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Feeling productive</span>
+</button>
+<button class="tag-chip" data-tag-id="e_distracted" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Feeling distracted</span>
+</button>
+<button class="tag-chip" data-tag-id="e_incr_appetite" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Increased appetite</span>
+</button>
+<button class="tag-chip" data-tag-id="e_reduc_appetite" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Reduced appetite</span>
+</button>
+<button class="tag-chip" data-tag-id="e_sweet_cravings" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Sweet cravings</span>
+</button>
+<button class="tag-chip" data-tag-id="e_choc_cravings" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Chocolate cravings</span>
+</button>
+<button class="tag-chip" data-tag-id="e_salty_cravings" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Salty-food cravings</span>
+</button>
+<button class="tag-chip" data-tag-id="e_spicy_cravings" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Spicy-food cravings</span>
+</button>
+<button class="tag-chip" data-tag-id="e_comfort_food" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Comfort-food cravings</span>
+</button>
+<button class="tag-chip" data-tag-id="e_fruit_cravings" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Fruit cravings</span>
+</button>
+<button class="tag-chip" data-tag-id="e_warm_drink" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Warm-drink preference</span>
+</button>
+<button class="tag-chip" data-tag-id="e_need_hydration" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Need hydration</span>
+</button>
+<button class="tag-chip" data-tag-id="e_balanced_meal" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Need a balanced meal</span>
+</button>
+<button class="tag-chip" data-tag-id="e_something_light" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Want something light</span>
+</button>
+<button class="tag-chip" data-tag-id="e_something_filling" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Want something filling</span>
+</button>
+<button class="tag-chip" data-tag-id="e_need_break" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Need a break</span>
+</button>
+<button class="tag-chip" data-tag-id="e_quiet_day" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Prefer a quiet day</span>
+</button>
+<button class="tag-chip" data-tag-id="e_active_day" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Prefer an active day</span>
+</button>
+<button class="tag-chip" data-tag-id="e_personal_time" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Need personal time</span>
+</button>
+<button class="tag-chip" data-tag-id="e_help_tasks" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Need help with daily tasks</span>
+</button>
+<button class="tag-chip" data-tag-id="e_relaxing_act" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Want a relaxing activity</span>
+</button>
+</div>
+</section>
+<!-- Category E: Comfort & Support Preferences (20 items) -->
+<section class="category-block bg-surface-container-lowest p-space-lg rounded-lg shadow-sm flex flex-col gap-3" data-cat="cat-comfort">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-8 h-8 rounded-full bg-primary-fixed-dim flex items-center justify-center text-on-primary-fixed">
+<span class="material-symbols-outlined text-[18px]">handshake</span>
+</span>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Comfort &amp; Support Preferences</h2>
+<span class="font-body-sm text-body-sm text-outline">How BUGA can love you today</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm px-2.5 py-1 rounded-full bg-surface-container-low text-on-surface-variant">20 tags</span>
+</div>
+<div class="tag-grid flex flex-wrap gap-2 pt-1">
+<button class="tag-chip" data-tag-id="c_sweet_msg" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Send me a sweet message</span>
+</button>
+<button class="tag-chip" data-tag-id="c_checkin_later" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Check in on me later</span>
+</button>
+<button class="tag-chip" data-tag-id="c_call_me" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Call me</span>
+</button>
+<button class="tag-chip" data-tag-id="c_talk" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Talk with me</span>
+</button>
+<button class="tag-chip" data-tag-id="c_listen" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Listen without giving advice</span>
+</button>
+<button class="tag-chip" data-tag-id="c_cheer_up" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Cheer me up</span>
+</button>
+<button class="tag-chip" data-tag-id="c_laugh" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Make me laugh</span>
+</button>
+<button class="tag-chip" data-tag-id="c_relax" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Help me relax</span>
+</button>
+<button class="tag-chip" data-tag-id="c_water" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Remind me to drink water</span>
+</button>
+<button class="tag-chip" data-tag-id="c_veg_meal" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Suggest a vegetarian meal</span>
+</button>
+<button class="tag-chip" data-tag-id="c_food_choice" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Help me choose food</span>
+</button>
+<button class="tag-chip" data-tag-id="c_space" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Give me some space</span>
+</button>
+<button class="tag-chip" data-tag-id="c_rest" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Let me rest</span>
+</button>
+<button class="tag-chip" data-tag-id="c_cozy_act" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Suggest a cozy activity</span>
+</button>
+<button class="tag-chip" data-tag-id="c_encouragement" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Send encouragement</span>
+</button>
+<button class="tag-chip" data-tag-id="c_cared_for" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Remind me that I am cared for</span>
+</button>
+<button class="tag-chip" data-tag-id="c_plan_day" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Help me plan my day</span>
+</button>
+<button class="tag-chip" data-tag-id="c_stretching" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Suggest gentle stretching</span>
+</button>
+<button class="tag-chip" data-tag-id="c_breathing" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Suggest a calm breathing exercise</span>
+</button>
+<button class="tag-chip" data-tag-id="c_okay_now" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>I am okay for now</span>
+</button>
+</div>
+</section>
+<!-- Category F: Daily Life & Notes (15 items) -->
+<section class="category-block bg-surface-container-lowest p-space-lg rounded-lg shadow-sm flex flex-col gap-3" data-cat="cat-life">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined text-[18px]">calendar_month</span>
+</span>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Daily Life &amp; Context</h2>
+<span class="font-body-sm text-body-sm text-outline">What's shaping your environment</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm px-2.5 py-1 rounded-full bg-surface-container-low text-on-surface-variant">15 tags</span>
+</div>
+<div class="tag-grid flex flex-wrap gap-2 pt-1">
+<button class="tag-chip" data-tag-id="l_workload" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Workload</span>
+</button>
+<button class="tag-chip" data-tag-id="l_study" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Study pressure</span>
+</button>
+<button class="tag-chip" data-tag-id="l_busy" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Busy schedule</span>
+</button>
+<button class="tag-chip" data-tag-id="l_travel" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Travel</span>
+</button>
+<button class="tag-chip" data-tag-id="l_exercise" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Exercise</span>
+</button>
+<button class="tag-chip" data-tag-id="l_rest_day" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Rest day</span>
+</button>
+<button class="tag-chip" data-tag-id="l_social" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Social plans</span>
+</button>
+<button class="tag-chip" data-tag-id="l_family" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Family time</span>
+</button>
+<button class="tag-chip" data-tag-id="l_privacy" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Need privacy</span>
+</button>
+<button class="tag-chip" data-tag-id="l_stress" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Stressful day</span>
+</button>
+<button class="tag-chip" data-tag-id="l_relaxing" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Relaxing day</span>
+</button>
+<button class="tag-chip" data-tag-id="l_routine_change" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Change in routine</span>
+</button>
+<button class="tag-chip" data-tag-id="l_weather" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Weather-related discomfort</span>
+</button>
+<button class="tag-chip" data-tag-id="l_special" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Special occasion</span>
+</button>
+<button class="tag-chip" data-tag-id="l_cozy_eve" type="button">
+<span class="check-icon material-symbols-outlined text-[16px]">check</span>
+<span>Cozy evening</span>
+</button>
+</div>
+</section>
+<!-- Search Empty State -->
+<div class="hidden flex-col items-center justify-center p-8 text-center bg-surface-container-lowest rounded-lg" id="noMatchState">
+<span class="material-symbols-outlined text-outline text-[40px] mb-2">sentiment_dissatisfied</span>
+<p class="font-headline-sm text-headline-sm text-on-surface font-medium">No matching tags found</p>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Try another keyword or write in your personal note below.</p>
+</div>
+</div>
+<!-- Personal Love Note & Privacy Toggle -->
+<section class="bg-surface-container-lowest p-space-lg rounded-lg shadow-sm flex flex-col gap-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">stylus_note</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Personal Note</h2>
+</div>
+<textarea class="w-full p-3.5 rounded-2xl bg-surface-container-low text-on-surface placeholder:text-outline/70 font-body-md text-body-md focus:outline-none focus:bg-surface-container-lowest focus:shadow-md transition-all resize-none" id="personalNoteInput" placeholder="Anything more specific on your heart? (e.g. craving warm chamomile tea, slightly tense neck from laptop...)" rows="3"></textarea>
+<!-- Privacy Share Toggle (OFF by default) -->
+<div class="flex items-center justify-between p-3 rounded-2xl bg-surface-container-low">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined text-[18px]">lock_person</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">Share summary with Buga?</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant" id="shareStatusSubtext">Private to you only</span>
+</div>
+</div>
+<button aria-checked="false" class="relative inline-flex h-7 w-12 flex-shrink-0 cursor-pointer rounded-full bg-surface-container-highest transition-colors duration-200 ease-in-out focus:outline-none" id="privacyToggleBtn" type="button">
+<span class="pointer-events-none inline-block h-5 w-5 translate-x-1 translate-y-1 rounded-full bg-surface-container-lowest shadow-md ring-0 transition duration-200 ease-in-out" id="privacyToggleThumb"></span>
+</button>
+</div>
+</section>
+<!-- Sticky Bottom Save Area -->
+<div class="sticky bottom-20 z-40 w-full pt-2">
+<div class="bg-surface/90 backdrop-blur-md p-2 rounded-full shadow-xl">
+<button class="w-full h-13 py-3.5 px-6 rounded-full bg-primary hover:bg-on-primary-container active:scale-[0.99] text-on-primary font-label-lg text-label-lg flex items-center justify-center gap-2 shadow-lg transition-all" id="saveCheckinBtn" type="button">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span id="saveBtnText">Save Check-in (4 selected) ❤️</span>
+</button>
+</div>
+</div>
+</div>
+<script>
+  (function initMoodTracker() {
+    // Styling class helper
+    const selectedClasses = ['bg-primary-container', 'text-on-primary-container', 'shadow-xs', 'font-semibold'];
+    const unselectedClasses = ['bg-surface-container-low', 'text-on-surface', 'hover:bg-secondary-container'];
+
+    const catalogRoot = document.getElementById('catalogRoot');
+    const allChips = Array.from(document.querySelectorAll('.tag-chip'));
+    const counterText = document.getElementById('selectedCounterText');
+    const saveBtnText = document.getElementById('saveBtnText');
+    const clearAllBtn = document.getElementById('clearAllBtn');
+    const searchInput = document.getElementById('tagSearchInput');
+    const clearSearchBtn = document.getElementById('clearSearchBtn');
+    const noMatchState = document.getElementById('noMatchState');
+    const catPills = Array.from(document.querySelectorAll('.cat-pill'));
+    const intensityBtns = Array.from(document.querySelectorAll('.intensity-btn'));
+    const intensityLabel = document.getElementById('intensityLabel');
+    const saveToast = document.getElementById('saveToast');
+    const saveCheckinBtn = document.getElementById('saveCheckinBtn');
+
+    // Privacy toggle
+    const privacyToggleBtn = document.getElementById('privacyToggleBtn');
+    const privacyToggleThumb = document.getElementById('privacyToggleThumb');
+    const shareStatusSubtext = document.getElementById('shareStatusSubtext');
+    let isSharedWithBuga = false;
+
+    // Apply baseline chip visual styles
+    function refreshChipStyles(chip) {
+      const isSelected = chip.classList.contains('is-selected');
+      const checkIcon = chip.querySelector('.check-icon');
+
+      chip.className = 'tag-chip inline-flex items-center gap-1.5 px-3 py-2 rounded-full font-body-sm text-body-sm transition-all cursor-pointer ';
+      if (isSelected) {
+        chip.classList.add(...selectedClasses, 'is-selected');
+        chip.setAttribute('aria-pressed', 'true');
+        if (checkIcon) checkIcon.classList.remove('hidden');
+      } else {
+        chip.classList.add(...unselectedClasses);
+        chip.setAttribute('aria-pressed', 'false');
+        if (checkIcon) checkIcon.classList.add('hidden');
+      }
+    }
+
+    // Initialize all chips
+    allChips.forEach(chip => {
+      refreshChipStyles(chip);
+      chip.addEventListener('click', () => {
+        chip.classList.toggle('is-selected');
+        refreshChipStyles(chip);
+        updateSelectedCounter();
+      });
+    });
+
+    // Update Live Count
+    function updateSelectedCounter() {
+      const count = document.querySelectorAll('.tag-chip.is-selected').length;
+      counterText.textContent = `${count} ${count === 1 ? 'item' : 'items'} selected`;
+      saveBtnText.textContent = `Save Check-in (${count} selected) ❤️`;
+    }
+    updateSelectedCounter();
+
+    // Clear all action
+    clearAllBtn.addEventListener('click', () => {
+      allChips.forEach(chip => {
+        chip.classList.remove('is-selected');
+        refreshChipStyles(chip);
+      });
+      updateSelectedCounter();
+    });
+
+    // Search filter across 180+ tags
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value.trim().toLowerCase();
+      clearSearchBtn.classList.toggle('hidden', query.length === 0);
+
+      let anyVisible = false;
+      const categories = catalogRoot.querySelectorAll('.category-block');
+
+      categories.forEach(block => {
+        let blockMatches = 0;
+        const chipsInBlock = block.querySelectorAll('.tag-chip');
+
+        chipsInBlock.forEach(chip => {
+          const text = chip.textContent.trim().toLowerCase();
+          const match = text.includes(query);
+          chip.style.display = match ? 'inline-flex' : 'none';
+          if (match) blockMatches++;
+        });
+
+        // Hide whole section if no tags inside matched
+        if (blockMatches === 0 && query !== '') {
+          block.style.display = 'none';
+        } else {
+          block.style.display = 'flex';
+          anyVisible = true;
+        }
+      });
+
+      noMatchState.style.display = (!anyVisible && query !== '') ? 'flex' : 'none';
+    });
+
+    clearSearchBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      clearSearchBtn.classList.add('hidden');
+      allChips.forEach(c => c.style.display = 'inline-flex');
+      catalogRoot.querySelectorAll('.category-block').forEach(b => b.style.display = 'flex');
+      noMatchState.style.display = 'none';
+    });
+
+    // Category Quick Tabs filter
+    catPills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        catPills.forEach(p => {
+          p.classList.remove('bg-primary', 'text-on-primary', 'shadow-sm');
+          p.classList.add('bg-surface-container-lowest', 'text-on-surface-variant');
+        });
+        pill.classList.remove('bg-surface-container-lowest', 'text-on-surface-variant');
+        pill.classList.add('bg-primary', 'text-on-primary', 'shadow-sm');
+
+        const filter = pill.getAttribute('data-filter');
+        const categories = catalogRoot.querySelectorAll('.category-block');
+
+        categories.forEach(block => {
+          if (filter === 'all' || block.getAttribute('data-cat') === filter) {
+            block.style.display = 'flex';
+          } else {
+            block.style.display = 'none';
+          }
+        });
+
+        // Also reset search if changing category pill
+        if (searchInput.value) {
+          searchInput.value = '';
+          clearSearchBtn.classList.add('hidden');
+          allChips.forEach(c => c.style.display = 'inline-flex');
+          noMatchState.style.display = 'none';
+        }
+      });
+    });
+
+    // Intensity selector buttons
+    const intensityMap = {
+      '1': 'Mild (1)',
+      '2': 'Moderate (2)',
+      '3': 'Uncomfortable (3)',
+      '4': 'Intense (4)'
+    };
+
+    intensityBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        intensityBtns.forEach(b => {
+          b.className = 'intensity-btn py-2.5 px-1 rounded-xl bg-surface-container-lowest text-on-surface hover:bg-surface-container font-label-md text-label-md flex flex-col items-center justify-center gap-0.5 transition-all';
+        });
+        btn.className = 'intensity-btn py-2.5 px-1 rounded-xl bg-primary text-on-primary font-label-md text-label-md flex flex-col items-center justify-center gap-0.5 shadow-sm transition-all';
+        const val = btn.getAttribute('data-intensity');
+        intensityLabel.textContent = intensityMap[val] || 'Mild (1)';
+      });
+    });
+
+    // Privacy Toggle Behavior (Default is OFF)
+    privacyToggleBtn.addEventListener('click', () => {
+      isSharedWithBuga = !isSharedWithBuga;
+      privacyToggleBtn.setAttribute('aria-checked', isSharedWithBuga ? 'true' : 'false');
+      if (isSharedWithBuga) {
+        privacyToggleBtn.classList.remove('bg-surface-container-highest');
+        privacyToggleBtn.classList.add('bg-primary');
+        privacyToggleThumb.classList.remove('translate-x-1');
+        privacyToggleThumb.classList.add('translate-x-6');
+        shareStatusSubtext.textContent = 'Shared with Buga ❤️';
+        shareStatusSubtext.classList.add('text-primary');
+      } else {
+        privacyToggleBtn.classList.remove('bg-primary');
+        privacyToggleBtn.classList.add('bg-surface-container-highest');
+        privacyToggleThumb.classList.remove('translate-x-6');
+        privacyToggleThumb.classList.add('translate-x-1');
+        shareStatusSubtext.textContent = 'Private to you only';
+        shareStatusSubtext.classList.remove('text-primary');
+      }
+    });
+
+    // Save Feedback Toast
+    let toastTimeout;
+    saveCheckinBtn.addEventListener('click', () => {
+      clearTimeout(toastTimeout);
+      saveToast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-[-8px]');
+      saveToast.classList.add('opacity-100', 'translate-y-0');
+
+      toastTimeout = setTimeout(() => {
+        saveToast.classList.remove('opacity-100', 'translate-y-0');
+        saveToast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-[-8px]');
+      }, 3000);
+    });
+  })();
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_-2px_12px_rgba(135,77,95,0.06)]" data-active-classes="text-primary font-semibold"><div class="h-16 px-space-sm flex items-center justify-around"><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] text-on-surface-variant transition-colors" data-path="home" href="#"><span class="material-symbols-outlined text-[22px]">favorite</span><span class="font-label-sm text-label-sm mt-0.5">Home</span></a><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] text-on-surface-variant transition-colors" data-path="my-cycle" href="#"><span class="material-symbols-outlined text-[22px]">calendar_month</span><span class="font-label-sm text-label-sm mt-0.5">My Cycle</span></a><a aria-current="page" class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] transition-colors text-primary font-semibold" data-path="my-feelings" href="#"><span class="material-symbols-outlined text-[22px]">mood</span><span class="font-label-sm text-label-sm mt-0.5">Feelings</span></a><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] text-on-surface-variant transition-colors" data-path="more-menu" href="#"><span class="material-symbols-outlined text-[22px]">grid_view</span><span class="font-label-sm text-label-sm mt-0.5">More</span></a></div></nav></body></html>
