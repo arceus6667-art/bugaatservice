@@ -598,8 +598,8 @@ fun FoodCatalogScreen(
               val items = stateManager.cartItems.map { Pair(it.dish.name, it.quantity) }
               backendScope.launch {
                 try {
-                  ActServiceApi.createFoodRequestByNames(items, customOrderNote)
-                  val order = stateManager.submitFoodOrder(customOrderNote, selectedTiming)
+                  val actualId = ActServiceApi.createFoodRequestByNames(items, customOrderNote)
+                  val order = stateManager.submitFoodOrder(customOrderNote, selectedTiming, actualId)
                   confirmedOrder = order
                 } catch (e: Exception) {
                   stateManager.lastConfirmationNotice = e.message ?: "Booking failed."
