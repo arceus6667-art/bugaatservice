@@ -1,5 +1,10 @@
 package com.example.model
 
+import com.example.supabase.ActServiceApi
+import org.json.JSONArray
+import java.time.LocalDate
+import java.time.temporal.ChronoUnit
+
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
@@ -262,4 +267,75 @@ class AppStateManager {
   fun clearCycleDates() {
     cycleState = CycleState()
   }
+  // Load persisted records for the signed-in account. Supabase RLS controls visibility.
+  suspend fun refreshFromDatabase() {
+    if (ActServiceApi.userId == null) return
+
+    val rows = ActServiceApi.loadFoodRequests()
+    val itemRows = ActServiceApi.loadFoodRequestItems()
+    val catalog = ActServiceApi.select("food_items", "?select=id,name&is_active=eq.true&limit=500")
+    val names = mutableMapOf<String, FoodDish>()
+    for (i in 0 until catalog.length()) {
+      val row = catalog.getJSONObject(i)
+      val dish = FoodCatalog.allDishes.firstOrNull { it.name == row.getString("name") }
+      if (dish != null) names[row.getString("id")] = dish
+    }
+    val restoredOrders = mutableListOf<FoodOrderRequest>()
+    for (i in 0 until rows.length()) {
+      val order = rows.getJSONObject(i)
+      val orderId = order.getString("id")
+      val cart = mutableListOf<CartItem>()
+      for (j in 0 until itemRows.length()) {
+        val item = itemRows.getJSONObject(j)
+        if (item.getString("food_request_id") == orderId) {
+          val dish = names[item.getString("food_item_id")]
+          if (dish != null) cart.add(CartItem(dish, item.getInt("quantity")))
+        }
+      }
+      val status = when (order.getString("status")) {
+        "acknowledged" -> FoodOrderStatus.NOTIFIED
+        "in_progress" -> FoodOrderStatus.ON_THE_WAY
+        "completed", "cancelled" -> FoodOrderStatus.COMPLETED
+        else -> FoodOrderStatus.REQUEST_SUBMITTED
+      }
+      restoredOrders.add(FoodOrderRequest(orderId, order.optString("created_at"),
+        cart, order.optString("notes"), "Requested", status))
+    }
+    activeFoodOrders.clear()
+    activeFoodOrders.addAll(restoredOrders)
+
+    val bells = ActServiceApi.loadBellRequests()
+    var active: BellAlert? = null
+    for (i in 0 until bells.length()) {
+      val item = bells.getJSONObject(i)
+      val status = when(item.getString("status")) {
+        "pending" -> BellStatus.NOTIFICATION_CREATED
+        "seen" -> BellStatus.SEEN_BY_BUGA
+        "responding" -> BellStatus.BUGA_RESPONDING
+        else -> null
+      }
+      if (status != null) {
+        active = BellAlert(item.getString("id"), item.optString("created_at"),
+          "Warm Support", item.optString("message"), status)
+        break
+      }
+    }
+    activeBellAlert = active
+
+    if (currentUserRole == UserRole.USER) {
+      val cycleRows = ActServiceApi.loadCycleEntries()
+      if (cycleRows.length() > 0) {
+        val entry = cycleRows.getJSONObject(0)
+        val start = LocalDate.parse(entry.getString("period_start_date"))
+        val end = entry.optString("period_end_date").takeIf { it.isNotBlank() && it != "null" }
+          ?.let { LocalDate.parse(it) }
+        val duration = end?.let { ChronoUnit.DAYS.between(start, it).toInt() + 1 } ?: 5
+        setPeriodStartDate(start.year, start.monthValue - 1, start.dayOfMonth,
+          duration = duration.coerceIn(1,15),
+          flow = entry.optString("flow_level", "medium"),
+          notes = entry.optString("notes"))
+      }
+    }
+  }
+
 }
