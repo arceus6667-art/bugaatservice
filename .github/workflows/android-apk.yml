@@ -21,7 +21,7 @@ jobs:
           packages: 'platform-tools platforms;android-36 build-tools;36.0.0'
       - uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: '9.3.0'
+          gradle-version: '9.3.1'
       - name: Configure project
         env:
           SUPABASE_PUBLISHABLE_KEY: sb_publishable_m39ZkyXzA0qjWDopzdxBRQ_cx1yNL0I
