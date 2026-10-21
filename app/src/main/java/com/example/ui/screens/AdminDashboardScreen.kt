@@ -1,5 +1,7 @@
 package com.example.ui.screens
 
+import com.example.supabase.ActServiceApi
+
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -151,10 +153,12 @@ fun AdminDashboardScreen(
             shape = RoundedCornerShape(9999.dp),
             modifier = Modifier
               .clickable {
+                ActServiceApi.signOut()
+                stateManager.isLoggedIn = false
                 stateManager.currentUserRole = UserRole.USER
-                onNavigate("home")
+                onNavigate("login")
               }
-              .testTag("admin_switch_to_user_button")
+              .testTag("admin_sign_out_button")
           ) {
             Row(
               modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
@@ -162,7 +166,7 @@ fun AdminDashboardScreen(
               horizontalArrangement = Arrangement.spacedBy(4.dp)
             ) {
               Icon(Icons.Default.SwapHoriz, contentDescription = null, tint = RosePrimary, modifier = Modifier.size(16.dp))
-              Text("User View", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = RosePrimary)
+              Text("Sign Out", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = RosePrimary)
             }
           }
         }
@@ -183,15 +187,7 @@ fun AdminDashboardScreen(
               fontSize = 11.sp,
               color = MaterialTheme.colorScheme.onSurfaceVariant
             )
-            Surface(color = LavenderSecondaryFixed, shape = RoundedCornerShape(9999.dp)) {
-              Text(
-                text = "DEMO MODE",
-                fontSize = 9.sp,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onSecondaryContainer,
-                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
-              )
-            }
+
           }
 
           Text(

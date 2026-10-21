@@ -1,5 +1,8 @@
 package com.example.ui.screens
 
+import com.example.supabase.ActServiceApi
+import java.time.LocalDate
+
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -569,10 +572,19 @@ fun FeelingsScreen(
       ) {
         Button(
           onClick = {
-            showToast = true
             coroutineScope.launch {
-              delay(3000)
-              showToast = false
+              try {
+                val checkinId = ActServiceApi.saveCheckin(
+                  LocalDate.now().toString(), stateManager.personalMoodNote,
+                  stateManager.discomfortIntensity.coerceIn(1,5))
+                val labels = MoodCatalog.allTags.filter { stateManager.selectedTagIds.contains(it.id) }.map { it.name }
+                ActServiceApi.saveCheckinSelectionsByLabels(checkinId, labels)
+                showToast = true
+                delay(3000)
+                showToast = false
+              } catch (e: Exception) {
+                stateManager.lastConfirmationNotice = e.message ?: "Unable to save check-in."
+              }
             }
           },
           modifier = Modifier

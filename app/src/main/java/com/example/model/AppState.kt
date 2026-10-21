@@ -1,5 +1,14 @@
 package com.example.model
 
+import com.example.supabase.ActServiceApi
+import org.json.JSONArray
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.temporal.ChronoUnit
+
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
@@ -9,6 +18,8 @@ import com.example.data.FoodCatalog
 import com.example.data.MoodCatalog
 
 class AppStateManager {
+  private val backendScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
+
   var isLoggedIn by mutableStateOf(false)
   var currentUserRole by mutableStateOf(UserRole.USER)
 
@@ -16,7 +27,7 @@ class AppStateManager {
   var currentScreen by mutableStateOf("home") // "home", "cycle", "feelings", "food", "ring_bell", "admin", "self_care", "profile"
 
   // Affection micro-interactions
-  var hugStatusText by mutableStateOf("Buga sent a morning hug 32m ago")
+  var hugStatusText by mutableStateOf("No messages yet")
   var hasHuggedBack by mutableStateOf(false)
 
   // Cycle tracking state
@@ -36,29 +47,7 @@ class AppStateManager {
   // Ring the Bell state
   var activeBellAlert by mutableStateOf<BellAlert?>(null)
 
-  val pastBellHistory = mutableStateListOf<PastCheckin>(
-    PastCheckin(
-      date = "Yesterday",
-      time = "6:15 PM",
-      title = "Hot Tea & Comfort Session",
-      description = "Resolved with chamomile hot tea, back rubs & soft kisses 🥰",
-      icon = "spa"
-    ),
-    PastCheckin(
-      date = "3 days ago",
-      time = "8:40 PM",
-      title = "Evening Sweet Craving",
-      description = "Buga brought double chocolate gelato & tucked you in warm 🍨",
-      icon = "icecream"
-    ),
-    PastCheckin(
-      date = "Monday",
-      time = "2:10 PM",
-      title = "Afternoon Miss You Alert",
-      description = "Answered with a 15-minute sweet voice call & virtual kisses 💖",
-      icon = "favorite"
-    )
-  )
+  val pastBellHistory = mutableStateListOf<PastCheckin>()
 
   // Feedback notifications
   var lastConfirmationNotice by mutableStateOf<String?>(null)
@@ -98,9 +87,9 @@ class AppStateManager {
     cartItems.clear()
   }
 
-  fun submitFoodOrder(customNote: String, timing: String): FoodOrderRequest {
+  fun submitFoodOrder(customNote: String, timing: String, actualId: String? = null): FoodOrderRequest {
     val newOrder = FoodOrderRequest(
-      referenceId = "#BF-${(105..999).random()}",
+      referenceId = actualId ?: "#BF-${(105..999).random()}",
       timestamp = "Just now",
       items = cartItems.toList(),
       customNote = customNote.ifBlank { "Please make it with extra love ❤️" },
@@ -135,33 +124,38 @@ class AppStateManager {
     activeBellAlert = null
   }
 
-  // Admin Actions for Buga
-  fun adminAcknowledgeBell() {
-    activeBellAlert = activeBellAlert?.copy(status = BellStatus.SEEN_BY_BUGA)
-  }
 
-  fun adminRespondingBell() {
-    activeBellAlert = activeBellAlert?.copy(status = BellStatus.BUGA_RESPONDING)
-  }
+  // Admin operations are persisted first; RLS verifies the admin token.
+  fun adminAcknowledgeBell() = updateBellStatus("seen")
+  fun adminRespondingBell() = updateBellStatus("responding")
+  fun adminResolveBell() = updateBellStatus("resolved")
 
-  fun adminResolveBell() {
-    activeBellAlert?.let {
-      pastBellHistory.add(0, PastCheckin(
-        date = "Today",
-        time = "Just now",
-        title = "Tender Care Mission Accomplished",
-        description = "Buga arrived with warmth and comfort! Everything resolved with love ❤️",
-        icon = "volunteer_activism"
-      ))
+  private fun updateBellStatus(status: String) {
+    val id = activeBellAlert?.id ?: return
+    backendScope.launch {
+      try {
+        ActServiceApi.updateRequest("bell_requests", id, status, bell = true)
+        refreshFromDatabase()
+      } catch (e: Exception) {
+        lastConfirmationNotice = e.message ?: "Could not update bell status"
+      }
     }
-    activeBellAlert = null
   }
 
   fun adminUpdateFoodStatus(orderId: String, newStatus: FoodOrderStatus) {
-    val index = activeFoodOrders.indexOfFirst { it.referenceId == orderId }
-    if (index >= 0) {
-      val existing = activeFoodOrders[index]
-      activeFoodOrders[index] = existing.copy(status = newStatus)
+    val status = when(newStatus) {
+      FoodOrderStatus.REQUEST_SUBMITTED -> "submitted"
+      FoodOrderStatus.NOTIFIED -> "acknowledged"
+      FoodOrderStatus.ON_THE_WAY -> "in_progress"
+      FoodOrderStatus.COMPLETED -> "completed"
+    }
+    backendScope.launch {
+      try {
+        ActServiceApi.updateRequest("food_requests", orderId, status)
+        refreshFromDatabase()
+      } catch (e: Exception) {
+        lastConfirmationNotice = e.message ?: "Could not update food status"
+      }
     }
   }
 
@@ -284,4 +278,75 @@ class AppStateManager {
   fun clearCycleDates() {
     cycleState = CycleState()
   }
+  // Load persisted records for the signed-in account. Supabase RLS controls visibility.
+  suspend fun refreshFromDatabase() {
+    if (ActServiceApi.userId == null) return
+
+    val rows = ActServiceApi.loadFoodRequests()
+    val itemRows = ActServiceApi.loadFoodRequestItems()
+    val catalog = ActServiceApi.select("food_items", "?select=id,name&is_active=eq.true&limit=500")
+    val names = mutableMapOf<String, FoodDish>()
+    for (i in 0 until catalog.length()) {
+      val row = catalog.getJSONObject(i)
+      val dish = FoodCatalog.allDishes.firstOrNull { it.name == row.getString("name") }
+      if (dish != null) names[row.getString("id")] = dish
+    }
+    val restoredOrders = mutableListOf<FoodOrderRequest>()
+    for (i in 0 until rows.length()) {
+      val order = rows.getJSONObject(i)
+      val orderId = order.getString("id")
+      val cart = mutableListOf<CartItem>()
+      for (j in 0 until itemRows.length()) {
+        val item = itemRows.getJSONObject(j)
+        if (item.getString("food_request_id") == orderId) {
+          val dish = names[item.getString("food_item_id")]
+          if (dish != null) cart.add(CartItem(dish, item.getInt("quantity")))
+        }
+      }
+      val status = when (order.getString("status")) {
+        "acknowledged" -> FoodOrderStatus.NOTIFIED
+        "in_progress" -> FoodOrderStatus.ON_THE_WAY
+        "completed", "cancelled" -> FoodOrderStatus.COMPLETED
+        else -> FoodOrderStatus.REQUEST_SUBMITTED
+      }
+      restoredOrders.add(FoodOrderRequest(orderId, order.optString("created_at"),
+        cart, order.optString("notes"), "Requested", status))
+    }
+    activeFoodOrders.clear()
+    activeFoodOrders.addAll(restoredOrders)
+
+    val bells = ActServiceApi.loadBellRequests()
+    var active: BellAlert? = null
+    for (i in 0 until bells.length()) {
+      val item = bells.getJSONObject(i)
+      val status = when(item.getString("status")) {
+        "pending" -> BellStatus.NOTIFICATION_CREATED
+        "seen" -> BellStatus.SEEN_BY_BUGA
+        "responding" -> BellStatus.BUGA_RESPONDING
+        else -> null
+      }
+      if (status != null) {
+        active = BellAlert(item.getString("id"), item.optString("created_at"),
+          "Warm Support", item.optString("message"), status)
+        break
+      }
+    }
+    activeBellAlert = active
+
+    if (currentUserRole == UserRole.USER) {
+      val cycleRows = ActServiceApi.loadCycleEntries()
+      if (cycleRows.length() > 0) {
+        val entry = cycleRows.getJSONObject(0)
+        val start = LocalDate.parse(entry.getString("period_start_date"))
+        val end = entry.optString("period_end_date").takeIf { it.isNotBlank() && it != "null" }
+          ?.let { LocalDate.parse(it) }
+        val duration = end?.let { ChronoUnit.DAYS.between(start, it).toInt() + 1 } ?: 5
+        setPeriodStartDate(start.year, start.monthValue - 1, start.dayOfMonth,
+          duration = duration.coerceIn(1,15),
+          flow = entry.optString("flow_level", "medium"),
+          notes = entry.optString("notes"))
+      }
+    }
+  }
+
 }

@@ -1,5 +1,9 @@
 package com.example.ui.screens
 
+import com.example.supabase.ActServiceApi
+import androidx.compose.runtime.rememberCoroutineScope
+import kotlinx.coroutines.launch
+
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -59,7 +63,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -91,13 +94,13 @@ import com.example.ui.theme.SageOnTertiaryContainer
 import com.example.ui.theme.SageTertiary
 import com.example.ui.theme.SageTertiaryContainer
 import com.example.ui.theme.SageTertiaryFixed
-import kotlinx.coroutines.launch
 
 @Composable
 fun FoodCatalogScreen(
   stateManager: AppStateManager,
   onNavigate: (String) -> Unit
 ) {
+  val backendScope = rememberCoroutineScope()
   var searchQuery by remember { mutableStateOf("") }
   var selectedCuisine by remember { mutableStateOf(FoodCuisine.ALL) }
   var onlyVegan by remember { mutableStateOf(false) }
@@ -592,8 +595,16 @@ fun FoodCatalogScreen(
           Button(
             onClick = {
               showConfirmDialog = false
-              val order = stateManager.submitFoodOrder(customOrderNote, selectedTiming)
-              confirmedOrder = order
+              val items = stateManager.cartItems.map { Pair(it.dish.name, it.quantity) }
+              backendScope.launch {
+                try {
+                  val actualId = ActServiceApi.createFoodRequestByNames(items, customOrderNote)
+                  val order = stateManager.submitFoodOrder(customOrderNote, selectedTiming, actualId)
+                  confirmedOrder = order
+                } catch (e: Exception) {
+                  stateManager.lastConfirmationNotice = e.message ?: "Booking failed."
+                }
+              }
             },
             colors = ButtonDefaults.buttonColors(
               containerColor = RosePrimary,
