@@ -2,6 +2,10 @@ package com.example.model
 
 import com.example.supabase.ActServiceApi
 import org.json.JSONArray
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 
@@ -14,6 +18,8 @@ import com.example.data.FoodCatalog
 import com.example.data.MoodCatalog
 
 class AppStateManager {
+  private val backendScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
+
   var isLoggedIn by mutableStateOf(false)
   var currentUserRole by mutableStateOf(UserRole.USER)
 
@@ -118,33 +124,38 @@ class AppStateManager {
     activeBellAlert = null
   }
 
-  // Admin Actions for Buga
-  fun adminAcknowledgeBell() {
-    activeBellAlert = activeBellAlert?.copy(status = BellStatus.SEEN_BY_BUGA)
-  }
 
-  fun adminRespondingBell() {
-    activeBellAlert = activeBellAlert?.copy(status = BellStatus.BUGA_RESPONDING)
-  }
+  // Admin operations are persisted first; RLS verifies the admin token.
+  fun adminAcknowledgeBell() = updateBellStatus("seen")
+  fun adminRespondingBell() = updateBellStatus("responding")
+  fun adminResolveBell() = updateBellStatus("resolved")
 
-  fun adminResolveBell() {
-    activeBellAlert?.let {
-      pastBellHistory.add(0, PastCheckin(
-        date = "Today",
-        time = "Just now",
-        title = "Tender Care Mission Accomplished",
-        description = "Buga arrived with warmth and comfort! Everything resolved with love ❤️",
-        icon = "volunteer_activism"
-      ))
+  private fun updateBellStatus(status: String) {
+    val id = activeBellAlert?.id ?: return
+    backendScope.launch {
+      try {
+        ActServiceApi.updateRequest("bell_requests", id, status, bell = true)
+        refreshFromDatabase()
+      } catch (e: Exception) {
+        lastConfirmationNotice = e.message ?: "Could not update bell status"
+      }
     }
-    activeBellAlert = null
   }
 
   fun adminUpdateFoodStatus(orderId: String, newStatus: FoodOrderStatus) {
-    val index = activeFoodOrders.indexOfFirst { it.referenceId == orderId }
-    if (index >= 0) {
-      val existing = activeFoodOrders[index]
-      activeFoodOrders[index] = existing.copy(status = newStatus)
+    val status = when(newStatus) {
+      FoodOrderStatus.REQUEST_SUBMITTED -> "submitted"
+      FoodOrderStatus.NOTIFIED -> "acknowledged"
+      FoodOrderStatus.ON_THE_WAY -> "in_progress"
+      FoodOrderStatus.COMPLETED -> "completed"
+    }
+    backendScope.launch {
+      try {
+        ActServiceApi.updateRequest("food_requests", orderId, status)
+        refreshFromDatabase()
+      } catch (e: Exception) {
+        lastConfirmationNotice = e.message ?: "Could not update food status"
+      }
     }
   }
 
