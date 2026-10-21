@@ -31,7 +31,8 @@ jobs:
           SUPABASE_PUBLISHABLE_KEY: sb_publishable_m39ZkyXzA0qjWDopzdxBRQ_cx1yNL0I
         run: |
           test -n "$SUPABASE_PUBLISHABLE_KEY" || { echo "Configure GitHub Actions secret SUPABASE_PUBLISHABLE_KEY"; exit 1; }
-          printf '%s\\n' "SUPABASE_URL=https://fcnqwxsgjmqdkxbseeyu.supabase.co" "SUPABASE_ANON_KEY=$SUPABASE_PUBLISHABLE_KEY" > .env
+          echo "SUPABASE_URL=https://fcnqwxsgjmqdkxbseeyu.supabase.co" > .env
+          echo "SUPABASE_ANON_KEY=$SUPABASE_PUBLISHABLE_KEY" >> .env
       - name: Build debug APK
         run: gradle --no-daemon :app:assembleDebug
       - name: Upload APK
