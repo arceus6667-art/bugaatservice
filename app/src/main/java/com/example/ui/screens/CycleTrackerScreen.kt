@@ -1,5 +1,7 @@
 package com.example.ui.screens
 
+import com.example.supabase.ActServiceApi
+
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -555,23 +557,30 @@ fun CycleTrackerScreen(
             ) {
               Button(
                 onClick = {
-                  stateManager.setPeriodStartDate(
-                    year = displayedYear,
-                    month = displayedMonth,
-                    day = selectedDay,
-                    duration = selectedDuration,
-                    cycleLength = selectedCycleLength,
-                    flow = selectedFlow,
-                    cramp = selectedCramp,
-                    notes = wellnessNotes
-                  )
-                  toastMessage = "🌸 Period starting on ${monthFormat.format(currentMonthCal.time).split(" ")[0]} $selectedDay saved!"
-                  showSavedToast = true
-                  coroutineScope.launch {
-                    delay(3000)
-                    showSavedToast = false
-                  }
-                },
+            coroutineScope.launch {
+              try {
+                val startDate = java.time.LocalDate.of(displayedYear, displayedMonth + 1, selectedDay)
+                val endDate = startDate.plusDays((selectedDuration - 1).toLong())
+                ActServiceApi.saveCycle(startDate.toString(), endDate.toString(), selectedFlow, wellnessNotes)
+                stateManager.setPeriodStartDate(
+                  year = displayedYear,
+                  month = displayedMonth,
+                  day = selectedDay,
+                  duration = selectedDuration,
+                  cycleLength = selectedCycleLength,
+                  flow = selectedFlow,
+                  cramp = selectedCramp,
+                  notes = wellnessNotes
+                )
+                toastMessage = "Period entry saved to your account."
+              } catch (e: Exception) {
+                toastMessage = e.message ?: "Unable to save period entry."
+              }
+              showSavedToast = true
+              delay(3000)
+              showSavedToast = false
+            }
+          },
                 modifier = Modifier
                   .weight(1f)
                   .height(40.dp)
@@ -933,19 +942,26 @@ fun CycleTrackerScreen(
         // Save & Calculate Button
         Button(
           onClick = {
-            stateManager.setPeriodStartDate(
-              year = displayedYear,
-              month = displayedMonth,
-              day = selectedDay,
-              duration = selectedDuration,
-              cycleLength = selectedCycleLength,
-              flow = selectedFlow,
-              cramp = selectedCramp,
-              notes = wellnessNotes
-            )
-            toastMessage = "✨ Cycle dates and predictions updated successfully!"
-            showSavedToast = true
             coroutineScope.launch {
+              try {
+                val startDate = java.time.LocalDate.of(displayedYear, displayedMonth + 1, selectedDay)
+                val endDate = startDate.plusDays((selectedDuration - 1).toLong())
+                ActServiceApi.saveCycle(startDate.toString(), endDate.toString(), selectedFlow, wellnessNotes)
+                stateManager.setPeriodStartDate(
+                  year = displayedYear,
+                  month = displayedMonth,
+                  day = selectedDay,
+                  duration = selectedDuration,
+                  cycleLength = selectedCycleLength,
+                  flow = selectedFlow,
+                  cramp = selectedCramp,
+                  notes = wellnessNotes
+                )
+                toastMessage = "Period entry saved to your account."
+              } catch (e: Exception) {
+                toastMessage = e.message ?: "Unable to save period entry."
+              }
+              showSavedToast = true
               delay(3000)
               showSavedToast = false
             }
