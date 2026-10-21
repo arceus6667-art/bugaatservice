@@ -171,4 +171,25 @@ object ActServiceApi {
     })
   }
 
+  suspend fun updateRequest(table: String, requestId: String, status: String,
+                            bell: Boolean = false) {
+    check(isAdmin) { "Administrator authorization required." }
+    val payload = JSONObject().put("status", status)
+    if (bell && status == "seen") payload.put("acknowledged_at", java.time.Instant.now().toString())
+    if (bell && status == "resolved") payload.put("resolved_at", java.time.Instant.now().toString())
+    call("/rest/v1/$table?id=eq.$requestId", "PATCH", payload.toString())
+  }
+
+  suspend fun loadFoodRequests(): JSONArray =
+    select("food_requests", "?select=*&order=created_at.desc&limit=100")
+
+  suspend fun loadBellRequests(): JSONArray =
+    select("bell_requests", "?select=*&order=created_at.desc&limit=100")
+
+  suspend fun loadFoodRequestItems(): JSONArray =
+    select("food_request_items", "?select=*&limit=1000")
+
+  suspend fun loadCycleEntries(): JSONArray =
+    select("cycle_entries", "?select=*&order=period_start_date.desc&limit=30")
+
 }
