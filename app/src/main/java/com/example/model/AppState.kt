@@ -87,9 +87,9 @@ class AppStateManager {
     cartItems.clear()
   }
 
-  fun submitFoodOrder(customNote: String, timing: String): FoodOrderRequest {
+  fun submitFoodOrder(customNote: String, timing: String, actualId: String? = null): FoodOrderRequest {
     val newOrder = FoodOrderRequest(
-      referenceId = "#BF-${(105..999).random()}",
+      referenceId = actualId ?: "#BF-${(105..999).random()}",
       timestamp = "Just now",
       items = cartItems.toList(),
       customNote = customNote.ifBlank { "Please make it with extra love ❤️" },
