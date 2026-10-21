@@ -146,4 +146,29 @@ object ActServiceApi {
     optionIds.forEach { a.put(JSONObject().put("checkin_id", checkinId).put("option_id", it)) }
     call("/rest/v1/daily_checkin_selections", "POST", a.toString())
   }
+  suspend fun createFoodRequestByNames(items: List<Pair<String, Int>>, notes: String): String {
+    val available = select("food_items", "?select=id,name&is_active=eq.true&limit=500")
+    val names = mutableMapOf<String,String>()
+    for (i in 0 until available.length()) {
+      val row = available.getJSONObject(i)
+      names[row.getString("name")] = row.getString("id")
+    }
+    return createFoodRequest(items.map { (name,qty) ->
+      Pair(names[name] ?: error("Food catalog item unavailable: $name"), qty)
+    }, notes)
+  }
+
+  suspend fun saveCheckinSelectionsByLabels(checkinId: String, labels: List<String>) {
+    if (labels.isEmpty()) return
+    val options = select("wellbeing_options", "?select=id,label&is_active=eq.true&limit=500")
+    val names = mutableMapOf<String,String>()
+    for (i in 0 until options.length()) {
+      val option = options.getJSONObject(i)
+      names[option.getString("label")] = option.getString("id")
+    }
+    saveCheckinSelections(checkinId, labels.map { label ->
+      names[label] ?: error("Wellbeing option not available: $label")
+    })
+  }
+
 }
