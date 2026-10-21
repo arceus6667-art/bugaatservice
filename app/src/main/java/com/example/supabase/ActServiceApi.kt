@@ -131,9 +131,17 @@ object ActServiceApi {
   }
 
   suspend fun saveCheckin(date: String, note: String, intensity: Int): String {
+    val existing = select("daily_checkins", "?select=id&checkin_date=eq.$date&limit=1")
+    if (existing.length() > 0) {
+      val id = existing.getJSONObject(0).getString("id")
+      val changes = JSONObject().put("notes", note).put("intensity", intensity)
+      call("/rest/v1/daily_checkins?id=eq.$id", "PATCH", changes.toString())
+      call("/rest/v1/daily_checkin_selections?checkin_id=eq.$id", "DELETE")
+      return id
+    }
+
     val payload = JSONObject().put("user_id", userId)
       .put("checkin_date", date).put("notes", note).put("intensity", intensity)
-    // Prefer return=representation so the generated UUID can be used for selections.
     val builder = Request.Builder().url(url + "/rest/v1/daily_checkins")
       .header("apikey", key).header("Authorization", "Bearer " + (token ?: error("Sign in")))
       .header("Content-Type", "application/json")
