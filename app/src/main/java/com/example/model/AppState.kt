@@ -16,7 +16,7 @@ class AppStateManager {
   var currentScreen by mutableStateOf("home") // "home", "cycle", "feelings", "food", "ring_bell", "admin", "self_care", "profile"
 
   // Affection micro-interactions
-  var hugStatusText by mutableStateOf("Buga sent a morning hug 32m ago")
+  var hugStatusText by mutableStateOf("No messages yet")
   var hasHuggedBack by mutableStateOf(false)
 
   // Cycle tracking state
@@ -36,29 +36,7 @@ class AppStateManager {
   // Ring the Bell state
   var activeBellAlert by mutableStateOf<BellAlert?>(null)
 
-  val pastBellHistory = mutableStateListOf<PastCheckin>(
-    PastCheckin(
-      date = "Yesterday",
-      time = "6:15 PM",
-      title = "Hot Tea & Comfort Session",
-      description = "Resolved with chamomile hot tea, back rubs & soft kisses 🥰",
-      icon = "spa"
-    ),
-    PastCheckin(
-      date = "3 days ago",
-      time = "8:40 PM",
-      title = "Evening Sweet Craving",
-      description = "Buga brought double chocolate gelato & tucked you in warm 🍨",
-      icon = "icecream"
-    ),
-    PastCheckin(
-      date = "Monday",
-      time = "2:10 PM",
-      title = "Afternoon Miss You Alert",
-      description = "Answered with a 15-minute sweet voice call & virtual kisses 💖",
-      icon = "favorite"
-    )
-  )
+  val pastBellHistory = mutableStateListOf<PastCheckin>()
 
   // Feedback notifications
   var lastConfirmationNotice by mutableStateOf<String?>(null)
