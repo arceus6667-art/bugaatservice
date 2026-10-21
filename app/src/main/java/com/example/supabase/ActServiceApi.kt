@@ -119,7 +119,15 @@ object ActServiceApi {
       .put("period_end_date", end ?: JSONObject.NULL)
       .put("flow_level", flow?.lowercase() ?: JSONObject.NULL)
       .put("notes", notes)
-    call("/rest/v1/cycle_entries", "POST", payload.toString())
+    val existing = select("cycle_entries", "?select=id&period_start_date=eq.$start&limit=1")
+    if (existing.length() == 0) {
+      call("/rest/v1/cycle_entries", "POST", payload.toString())
+    } else {
+      val changes = JSONObject().put("period_end_date", end ?: JSONObject.NULL)
+        .put("flow_level", flow?.lowercase() ?: JSONObject.NULL).put("notes", notes)
+      call("/rest/v1/cycle_entries?id=eq.${existing.getJSONObject(0).getString("id")}",
+        "PATCH", changes.toString())
+    }
   }
 
   suspend fun saveCheckin(date: String, note: String, intensity: Int): String {
@@ -192,4 +200,8 @@ object ActServiceApi {
   suspend fun loadCycleEntries(): JSONArray =
     select("cycle_entries", "?select=*&order=period_start_date.desc&limit=30")
 
+  suspend fun clearCycleEntries() {
+    val id = userId ?: error("Please sign in.")
+    call("/rest/v1/cycle_entries?user_id=eq.$id", "DELETE")
+  }
 }
