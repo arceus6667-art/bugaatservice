@@ -63,7 +63,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -95,7 +94,6 @@ import com.example.ui.theme.SageOnTertiaryContainer
 import com.example.ui.theme.SageTertiary
 import com.example.ui.theme.SageTertiaryContainer
 import com.example.ui.theme.SageTertiaryFixed
-import kotlinx.coroutines.launch
 
 @Composable
 fun FoodCatalogScreen(
