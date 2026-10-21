@@ -65,6 +65,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.model.AppStateManager
 import com.example.model.UserRole
+import com.example.supabase.ActServiceApi
+import androidx.compose.runtime.rememberCoroutineScope
+import kotlinx.coroutines.launch
 import com.example.ui.theme.LavenderSecondaryContainer
 import com.example.ui.theme.PlayfairDisplayFontFamily
 import com.example.ui.theme.PlusJakartaSansFontFamily
@@ -81,6 +84,8 @@ fun LoginScreen(
   stateManager: AppStateManager,
   onLoginSuccess: (UserRole) -> Unit
 ) {
+  val loginScope = rememberCoroutineScope()
+  var loginBusy by remember { mutableStateOf(false) }
   var username by remember { mutableStateOf("") }
   var password by remember { mutableStateOf("") }
   var isPasswordVisible by remember { mutableStateOf(false) }
@@ -320,23 +325,20 @@ fun LoginScreen(
 
               Button(
                 onClick = {
-                  val trimmedUser = username.trim().lowercase()
-                  val trimmedPass = password.trim()
-                  when {
-                    trimmedUser == "bogi" && trimmedPass == "yourmine" -> {
-                      stateManager.isLoggedIn = true
-                      stateManager.currentUserRole = UserRole.USER
-                      stateManager.currentScreen = "home"
-                      onLoginSuccess(UserRole.USER)
-                    }
-                    trimmedUser == "buga" && trimmedPass == "yourmine69" -> {
-                      stateManager.isLoggedIn = true
-                      stateManager.currentUserRole = UserRole.ADMIN
-                      stateManager.currentScreen = "admin"
-                      onLoginSuccess(UserRole.ADMIN)
-                    }
-                    else -> {
-                      errorMessage = "Incorrect username or password. Please try again."
+                  if (!loginBusy) {
+                    loginBusy = true
+                    loginScope.launch {
+                      try {
+                        val admin = ActServiceApi.signIn(username, password)
+                        stateManager.currentUserRole = if (admin) UserRole.ADMIN else UserRole.USER
+                        stateManager.currentScreen = if (admin) "admin" else "home"
+                        stateManager.isLoggedIn = true
+                        onLoginSuccess(stateManager.currentUserRole)
+                      } catch (e: Exception) {
+                        errorMessage = e.message ?: "Unable to sign in."
+                      } finally {
+                        loginBusy = false
+                      }
                     }
                   }
                 },
