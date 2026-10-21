@@ -1,5 +1,9 @@
 package com.example.ui.screens
 
+import com.example.supabase.ActServiceApi
+import androidx.compose.runtime.rememberCoroutineScope
+import kotlinx.coroutines.launch
+
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
@@ -92,6 +96,7 @@ fun RingBellScreen(
   stateManager: AppStateManager,
   onNavigate: (String) -> Unit
 ) {
+  val backendScope = rememberCoroutineScope()
   var selectedUrgency by remember { mutableStateOf("Warm Support") }
   var customNoteText by remember { mutableStateOf("") }
   var showCancelModal by remember { mutableStateOf(false) }
@@ -198,7 +203,14 @@ fun RingBellScreen(
                 )
               )
               .clickable {
-                stateManager.triggerRingBell(selectedUrgency, customNoteText)
+                backendScope.launch {
+                  try {
+                    ActServiceApi.createBellRequest(customNoteText)
+                    stateManager.triggerRingBell(selectedUrgency, customNoteText)
+                  } catch (e: Exception) {
+                    stateManager.lastConfirmationNotice = e.message ?: "Unable to ring the bell."
+                  }
+                }
               }
               .testTag("center_ring_bell_button"),
             contentAlignment = Alignment.Center
@@ -359,7 +371,14 @@ fun RingBellScreen(
         // Action Button
         Button(
           onClick = {
-            stateManager.triggerRingBell(selectedUrgency, customNoteText)
+            backendScope.launch {
+                  try {
+                    ActServiceApi.createBellRequest(customNoteText)
+                    stateManager.triggerRingBell(selectedUrgency, customNoteText)
+                  } catch (e: Exception) {
+                    stateManager.lastConfirmationNotice = e.message ?: "Unable to ring the bell."
+                  }
+                }
           },
           modifier = Modifier
             .fillMaxWidth()
