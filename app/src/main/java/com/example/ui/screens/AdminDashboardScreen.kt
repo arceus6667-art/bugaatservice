@@ -165,7 +165,7 @@ fun AdminDashboardScreen(
               verticalAlignment = Alignment.CenterVertically,
               horizontalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-              Icon(Icons.Default.ExitToApp, contentDescription = null, tint = RosePrimary, modifier = Modifier.size(16.dp))
+              Icon(Icons.Default.SwapHoriz, contentDescription = null, tint = RosePrimary, modifier = Modifier.size(16.dp))
               Text("Sign Out", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = RosePrimary)
             }
           }
