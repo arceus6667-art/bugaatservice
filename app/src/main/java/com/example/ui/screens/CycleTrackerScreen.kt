@@ -535,10 +535,15 @@ fun CycleTrackerScreen(
               if (stateManager.cycleState.hasLoggedPeriod) {
                 TextButton(
                   onClick = {
-                    stateManager.clearCycleDates()
-                    toastMessage = "Cycle dates cleared."
-                    showSavedToast = true
                     coroutineScope.launch {
+                      try {
+                        ActServiceApi.clearCycleEntries()
+                        stateManager.clearCycleDates()
+                        toastMessage = "Cycle entries removed from your account."
+                      } catch (e: Exception) {
+                        toastMessage = e.message ?: "Could not clear cycle records."
+                      }
+                      showSavedToast = true
                       delay(2500)
                       showSavedToast = false
                     }
