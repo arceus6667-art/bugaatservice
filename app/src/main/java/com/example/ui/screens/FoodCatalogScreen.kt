@@ -1,5 +1,9 @@
 package com.example.ui.screens
 
+import com.example.supabase.ActServiceApi
+import androidx.compose.runtime.rememberCoroutineScope
+import kotlinx.coroutines.launch
+
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -98,6 +102,7 @@ fun FoodCatalogScreen(
   stateManager: AppStateManager,
   onNavigate: (String) -> Unit
 ) {
+  val backendScope = rememberCoroutineScope()
   var searchQuery by remember { mutableStateOf("") }
   var selectedCuisine by remember { mutableStateOf(FoodCuisine.ALL) }
   var onlyVegan by remember { mutableStateOf(false) }
@@ -592,8 +597,16 @@ fun FoodCatalogScreen(
           Button(
             onClick = {
               showConfirmDialog = false
-              val order = stateManager.submitFoodOrder(customOrderNote, selectedTiming)
-              confirmedOrder = order
+              val items = stateManager.cartItems.map { Pair(it.dish.name, it.quantity) }
+              backendScope.launch {
+                try {
+                  ActServiceApi.createFoodRequestByNames(items, customOrderNote)
+                  val order = stateManager.submitFoodOrder(customOrderNote, selectedTiming)
+                  confirmedOrder = order
+                } catch (e: Exception) {
+                  stateManager.lastConfirmationNotice = e.message ?: "Booking failed."
+                }
+              }
             },
             colors = ButtonDefaults.buttonColors(
               containerColor = RosePrimary,
